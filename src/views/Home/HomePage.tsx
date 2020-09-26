@@ -1,7 +1,7 @@
 import React from "react"
 import { NavLink, useParams, Switch, Route } from "react-router-dom"
 
-// import { useUser } from "../__shared__/UserProvider"
+import { useUser } from "../__shared__/UserProvider"
 import GlobalFeedContainer from "./GlobalFeedContainer"
 // import YourFeedContainer from "./YourFeedContainer"
 // import PopularTagsContainer from "./PopularTagsContainer"
@@ -48,7 +48,7 @@ function TabBar(props: { tag?: string; authenticated: boolean }) {
 
 function Home() {
   const { tag } = useParams()
-  const authenticated = false // !!useUser()
+  const authenticated = !!useUser()
 
   return (
     <div className="home-page">

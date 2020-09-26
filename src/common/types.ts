@@ -15,8 +15,8 @@ export interface Article {
 export interface User {
   username: string
   email: string
+  image: string
   bio?: string | null
-  image?: string | null
   following?: boolean
 }
 
@@ -42,4 +42,17 @@ export interface ArticleListResult {
       image: string
     }
   }>
+}
+
+export interface LogInResult {
+  token: string
+  user: {
+    id: number
+    username: string
+    email: string
+    image: string | null
+    bio: string | null
+    createdAt: Date
+    updatedAt: Date
+  }
 }

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 import config from "../../../common/config"
 import { Article } from "../../../common/types"
 import { formatDate } from "../../../common/helpers"
-// import { useUser } from "../UserProvider"
+import { useUser } from "../UserProvider"
 
 function ArticleListItemView(props: {
   article: Partial<Article>

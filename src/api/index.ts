@@ -1,13 +1,23 @@
 import config from "../common/config"
-import { ArticleListResult } from "../common/types"
+import { ArticleListResult, LogInResult } from "../common/types"
 
 const { baseUrl } = config.api
-export function getGlobalFeed(args: {
-  limit: number
-  offset: number
-}): Promise<ArticleListResult> {
+
+export async function getGlobalFeed(args: { limit: number; offset: number }) {
   const { limit, offset } = args
-  return fetch(
-    `${baseUrl}/articles?limit=${limit}&offset=${offset}`
-  ).then((res) => res.json())
+  const res = await fetch(`${baseUrl}/articles?limit=${limit}&offset=${offset}`)
+  return (await res.json()) as ArticleListResult
+}
+
+export async function loginWithToken(args: { token: string }) {
+  const res = await fetch(`${baseUrl}/user`, {
+    headers: {
+      authorization: `Token ${args.token}`,
+    },
+  })
+
+  const {
+    user: { token, ...rest },
+  } = await res.json()
+  return { token, user: rest } as LogInResult
 }

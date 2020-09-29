@@ -8,6 +8,6 @@ export const globalFeedQuery = new Query("GlobalFeed", getGlobalFeed, {
   shape: { articles: [ArticleType] },
 })
 
-export const loggedInUserQuery = new LocalQuery<User>("LoggedInUser", {
+export const signedInUserQuery = new LocalQuery<User>("SignedInUser", {
   shape: UserType,
 })

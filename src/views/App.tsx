@@ -6,7 +6,7 @@ import Footer from "./__shared__/Footer"
 import HomePage from "./Home/HomePage"
 // import UserPage from "./User/UserPage"
 // import ArticleViewContainer from "./Article/ArticleViewContainer"
-// import SignUpFormContainer from "./SignUp/SignUpFormContainer"
+import SignUpFormContainer from "./SignUp/SignUpFormContainer"
 // import SignInFormContainer from "./SignIn/SignInFormContainer"
 // import NewArticleContainer from "./Post/NewArticleContainer"
 // import EditArticleContainer from "./Post/EditArticleContainer"
@@ -17,8 +17,8 @@ function App() {
     <div>
       <Header />
       <Switch>
-        {/* <Route path="/signup" component={SignUpFormContainer} />
-        <Route path="/signin" component={SignInFormContainer} />
+        <Route path="/signup" component={SignUpFormContainer} />
+        {/* <Route path="/signin" component={SignInFormContainer} />
         <Route path="/articles/:slug" component={ArticleViewContainer} />
         <Route path="/users/:username" component={UserPage} />
         <Route path="/post" component={NewArticleContainer} />

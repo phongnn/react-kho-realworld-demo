@@ -37,7 +37,7 @@ const { pageSize } = config.pagination
 //     mswGraphql.query<GlobalFeedQueryResult>(
 //       "GetGlobalFeed",
 //       (req, res, ctx) => {
-//         return res(ctx.data({ articles: { articleCount: 0, articles: [] } }))
+//         return res(ctx.data({ articles: { articlesCount: 0, articles: [] } }))
 //       }
 //     )
 //   )

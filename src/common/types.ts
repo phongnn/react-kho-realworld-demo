@@ -29,7 +29,7 @@ export interface Comment {
 }
 
 export interface ArticleListResult {
-  articleCount: number
+  articlesCount: number
   articles: Array<{
     slug: string
     title: string
@@ -50,9 +50,13 @@ export interface LogInResult {
     id: number
     username: string
     email: string
-    image: string | null
+    image: string
     bio: string | null
     createdAt: Date
     updatedAt: Date
   }
+}
+
+export interface Errors {
+  errors: Record<string, string | string[]>
 }

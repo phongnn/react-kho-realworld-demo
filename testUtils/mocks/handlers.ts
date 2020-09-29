@@ -2,57 +2,16 @@ import { rest } from "msw"
 
 import {
   allArticles,
-  popularTags,
-  getArticlesByTag,
   accessToken,
-  alice,
-  aliceArticles,
-  getFavArticles,
-  bob,
-  bobArticles,
-  getFeedArticles,
+  // popularTags,
+  // getArticlesByTag,
+  // alice,
+  // aliceArticles,
+  // getFavArticles,
+  // bob,
+  // bobArticles,
+  // getFeedArticles,
 } from "./data"
-// import {
-//   GlobalFeedQueryResult,
-//   GlobalFeedQueryVariables,
-//   PopularTagsQueryResult,
-//   ArticlesByTagQueryResult,
-//   ArticlesByTagQueryVariables,
-//   ArticleQueryResult,
-//   ArticleQueryVariables,
-//   UserInfoQueryResult,
-//   UserInfoQueryVariables,
-//   UserArticlesQueryResult,
-//   UserArticlesQueryVariables,
-//   FavoriteArticlesQueryResult,
-//   FavoriteArticlesQueryVariables,
-//   YourFeedQueryResult,
-//   YourFeedQueryVariables,
-// } from "../../src/store/queries"
-// import {
-//   RegisterMutationResult,
-//   RegisterMutationVariables,
-//   LoginMutationResult,
-//   LoginMutationVariables,
-//   LogInWithTokenMutationResult,
-//   LogInWithTokenMutationVariables,
-//   FavoriteArticleMutationResult,
-//   FavoriteArticleMutationVariables,
-//   CreateArticleMutationResult,
-//   CreateArticleMutationVariables,
-//   UpdateArticleMutationResult,
-//   UpdateArticleMutationVariables,
-//   DeleteArticleMutationResult,
-//   DeleteArticleMutationVariables,
-//   CreateCommentMutationResult,
-//   CreateCommentMutationVariables,
-//   DeleteCommentMutationResult,
-//   UpdateProfileMutationResult,
-//   UpdateProfileMutationVariables,
-//   FollowUserMutationResult,
-//   FollowUserMutationVariables,
-// } from "../../src/store/mutations"
-
 import config from "../../src/common/config"
 
 const { baseUrl } = config.api
@@ -61,7 +20,6 @@ export const handlers = [
   rest.get(`${baseUrl}/articles`, ({ url }, res, ctx) => {
     const limit = parseInt(url.searchParams.get("limit")!)
     const offset = parseInt(url.searchParams.get("offset")!)
-    // console.log("[msw] limit = ", limit, ", offset = ", offset)
     return res(ctx.json(transformArticleList(allArticles, limit, offset)))
   }),
   // graphql.query<YourFeedQueryResult, YourFeedQueryVariables>(
@@ -144,18 +102,19 @@ export const handlers = [
   //     )
   //   }
   // ),
-  // graphql.mutation<RegisterMutationResult, RegisterMutationVariables>(
-  //   "RegisterUser",
-  //   ({ variables: { username, email } }, res, ctx) =>
-  //     res(
-  //       ctx.data({
-  //         register: {
-  //           user: { username, email, bio: null, image: null },
-  //           token: accessToken,
-  //         },
-  //       })
-  //     )
-  // ),
+  rest.post(`${baseUrl}/users`, (req, res, ctx) => {
+    // @ts-ignore
+    const { username, email } = req.body.user
+    return res(
+      ctx.json({
+        user: {
+          username,
+          email,
+          token: accessToken,
+        },
+      })
+    )
+  }),
   // graphql.mutation<UpdateProfileMutationResult, UpdateProfileMutationVariables>(
   //   "UpdateProfile",
   //   ({ variables: { input } }, res, ctx) =>
@@ -337,7 +296,7 @@ function transformArticleList(
   offset: number
 ) {
   return {
-    articleCount: articles.length,
+    articlesCount: articles.length,
     articles: allArticles
       .slice(offset, offset + limit)
       .map(

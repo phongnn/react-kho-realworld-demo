@@ -21,14 +21,14 @@ function GlobalFeedContainer() {
   } else if (error) {
     return <div style={{ paddingTop: 15 }}>Error: {error.message}</div>
   } else if (data) {
-    const { articleCount, articles } = data
-    return articleCount === 0 ? (
+    const { articlesCount, articles } = data
+    return articlesCount === 0 ? (
       <div style={{ paddingTop: 15 }}>No articles found.</div>
     ) : (
       <ArticleList
         articles={articles}
         currentPage={currentPage}
-        totalPages={Math.ceil(articleCount / pageSize)}
+        totalPages={Math.ceil(articlesCount / pageSize)}
         onPageSelect={setCurrentPage}
       />
     )

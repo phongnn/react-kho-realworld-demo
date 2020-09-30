@@ -5,22 +5,32 @@ import {
   accessToken,
   // popularTags,
   // getArticlesByTag,
-  // alice,
-  // aliceArticles,
-  // getFavArticles,
-  // bob,
-  // bobArticles,
+  alice,
+  aliceArticles,
+  getFavArticles,
+  bob,
+  bobArticles,
   // getFeedArticles,
 } from "./data"
 import config from "../../src/common/config"
 
 const { baseUrl } = config.api
+const authHeader = `Token ${accessToken}`
 
 export const handlers = [
   rest.get(`${baseUrl}/articles`, ({ url }, res, ctx) => {
     const limit = parseInt(url.searchParams.get("limit")!)
     const offset = parseInt(url.searchParams.get("offset")!)
-    return res(ctx.json(transformArticleList(allArticles, limit, offset)))
+    const author = url.searchParams.get("author")
+    const favorited = url.searchParams.get("favorited")
+    const articles = favorited
+      ? getFavArticles(favorited)
+      : author === "alice"
+      ? aliceArticles
+      : author === "bob"
+      ? bobArticles
+      : allArticles
+    return res(ctx.json(transformArticleList(articles, limit, offset)))
   }),
   // graphql.query<YourFeedQueryResult, YourFeedQueryVariables>(
   //   "GetYourFeed",
@@ -32,36 +42,6 @@ export const handlers = [
   //           limit,
   //           offset
   //         ),
-  //       })
-  //     )
-  // ),
-  // graphql.query<UserArticlesQueryResult, UserArticlesQueryVariables>(
-  //   "GetUserArticles",
-  //   ({ variables: { username, limit, offset } }, res, ctx) => {
-  //     const articles = username === "alice" ? aliceArticles : bobArticles
-  //     return res(
-  //       ctx.data({
-  //         user: {
-  //           username,
-  //           articles: transformArticleList(articles, limit, offset),
-  //         },
-  //       })
-  //     )
-  //   }
-  // ),
-  // graphql.query<FavoriteArticlesQueryResult, FavoriteArticlesQueryVariables>(
-  //   "GetFavoriteArticles",
-  //   ({ variables: { username, limit, offset } }, res, ctx) =>
-  //     res(
-  //       ctx.data({
-  //         user: {
-  //           username,
-  //           favoriteArticles: transformArticleList(
-  //             getFavArticles(username),
-  //             limit,
-  //             offset
-  //           ),
-  //         },
   //       })
   //     )
   // ),
@@ -86,22 +66,22 @@ export const handlers = [
   //       })
   //     )
   // ),
-  // graphql.query<UserInfoQueryResult, UserInfoQueryVariables>(
-  //   "GetUserInfo",
-  //   ({ variables: { username } }, res, ctx) => {
-  //     const user = username === "alice" ? alice : bob
-  //     return res(
-  //       ctx.data({
-  //         user: {
-  //           username: user.username,
-  //           image: user.image,
-  //           bio: user.bio,
-  //           following: false,
-  //         },
-  //       })
-  //     )
-  //   }
-  // ),
+  rest.get(
+    `${baseUrl}/profiles/:username`,
+    ({ params: { username } }, res, ctx) => {
+      const user = username === "alice" ? alice : bob
+      return res(
+        ctx.json({
+          profile: {
+            username: user.username,
+            image: user.image,
+            bio: user.bio,
+            following: false,
+          },
+        })
+      )
+    }
+  ),
   rest.post(`${baseUrl}/users`, (req, res, ctx) => {
     // @ts-ignore
     const { username, email } = req.body.user
@@ -146,26 +126,21 @@ export const handlers = [
   //         : ctx.errors([{ message: "Invalid email or password." }])
   //     )
   // ),
-  // graphql.mutation<
-  //   LogInWithTokenMutationResult,
-  //   LogInWithTokenMutationVariables
-  // >("LoginWithToken", ({ variables: { token } }, res, ctx) =>
-  //   res(
-  //     token === accessToken
-  //       ? ctx.data({
-  //           loginWithToken: {
-  //             user: {
-  //               username: alice.username,
-  //               email: alice.email,
-  //               bio: alice.bio,
-  //               image: alice.image,
-  //             },
-  //             token: accessToken,
-  //           },
-  //         })
-  //       : ctx.errors([{ message: "Invalid access token." }])
-  //   )
-  // ),
+  rest.get(`${baseUrl}/user`, ({ headers }, res, ctx) =>
+    headers.get("authorization") === authHeader
+      ? res(
+          ctx.json({
+            user: {
+              username: alice.username,
+              email: alice.email,
+              bio: alice.bio,
+              image: alice.image,
+              token: accessToken,
+            },
+          })
+        )
+      : res(ctx.status(401, "Invalid access token."))
+  ),
   // graphql.mutation<
   //   FavoriteArticleMutationResult,
   //   FavoriteArticleMutationVariables
@@ -186,19 +161,28 @@ export const handlers = [
   //     })
   //   )
   // }),
-  // graphql.mutation<FollowUserMutationResult, FollowUserMutationVariables>(
-  //   "FollowUser",
-  //   ({ variables: { username, following } }, res, ctx) => {
-  //     return res(
-  //       ctx.data({
-  //         followUser: {
-  //           username,
-  //           following,
-  //         },
-  //       })
-  //     )
-  //   }
-  // ),
+  rest.post(
+    `${baseUrl}/profiles/:username/follow`,
+    ({ params: { username } }, res, ctx) => {
+      return res(
+        ctx.json({
+          username,
+          following: true,
+        })
+      )
+    }
+  ),
+  rest.delete(
+    `${baseUrl}/profiles/:username/follow`,
+    ({ params: { username } }, res, ctx) => {
+      return res(
+        ctx.json({
+          username,
+          following: false,
+        })
+      )
+    }
+  ),
   // graphql.mutation<CreateArticleMutationResult, CreateArticleMutationVariables>(
   //   "CreateArticle",
   //   // prettier-ignore

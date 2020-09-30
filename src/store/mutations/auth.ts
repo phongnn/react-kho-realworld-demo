@@ -15,7 +15,7 @@ export const signInWithTokenMutation = new Mutation(
   async () => {
     const token = getAccessToken()
     if (token) {
-      return await signInWithToken({ token })
+      return await signInWithToken(token)
     }
   },
   {
@@ -34,13 +34,17 @@ export const signInWithTokenMutation = new Mutation(
   }
 )
 
-export const signUpMutation = new Mutation("SignUp", signUp, {
-  shape: { user: UserType },
-  afterQueryUpdates(store, { mutationResult }) {
-    if ((mutationResult as LogInResult).token) {
-      const { user, token } = mutationResult as LogInResult
-      store.setQueryData(signedInUserQuery, user)
-      saveAccessToken(token)
-    }
-  },
-})
+export const signUpMutation = new Mutation(
+  "SignUp",
+  (args: { username: string; email: string; password: string }) => signUp(args),
+  {
+    shape: { user: UserType },
+    afterQueryUpdates(store, { mutationResult }) {
+      if ((mutationResult as LogInResult).token) {
+        const { user, token } = mutationResult as LogInResult
+        store.setQueryData(signedInUserQuery, user)
+        saveAccessToken(token)
+      }
+    },
+  }
+)

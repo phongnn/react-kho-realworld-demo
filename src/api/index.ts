@@ -1,10 +1,21 @@
 import config from "../common/config"
-import { ArticleListResult, Errors, LogInResult, User } from "../common/types"
+import {
+  Article,
+  ArticleListResult,
+  Errors,
+  LogInResult,
+  User,
+} from "../common/types"
 import { getAccessToken } from "../accessToken"
 
 export async function getUser(username: string) {
   const result = await request(`/profiles/${username}`)
   return setAvatarPlaceholder(result.profile)
+}
+
+export async function getArticle(slug: string) {
+  const result = await request(`/articles/${slug}`)
+  return result.article as Article
 }
 
 export async function getGlobalFeed(limit: number, offset: number) {
@@ -61,12 +72,56 @@ export async function unfollowUser(username: string) {
   return { username, following: false } as Partial<User>
 }
 
+export async function createArticle(input: any) {
+  const result = await request(`/articles`, {
+    method: "post",
+    body: { article: input },
+  })
+  return result.article as Article
+}
+
+export async function updateArticle(slug: string, input: any) {
+  const result = await request(`/articles/${slug}`, {
+    method: "put",
+    body: { article: input },
+  })
+  return result.article as Article
+}
+
+export async function deleteArticle(slug: string) {
+  await request(`/articles/${slug}`, { method: "delete" })
+}
+
+export async function favoriteArticle(slug: string) {
+  const result = await request(`/articles/${slug}/favorite`, { method: "post" })
+  return result.article as Article
+}
+
+export async function unfavoriteArticle(slug: string) {
+  const result = await request(`/articles/${slug}/favorite`, {
+    method: "delete",
+  })
+  return result.article as Article
+}
+
+export async function createComment(slug: string, input: any) {
+  const result = await request(`/articles/${slug}/comments`, {
+    method: "post",
+    body: { comment: input },
+  })
+  return result.comment as Comment
+}
+
+export async function deleteComment(slug: string, commentId: string) {
+  await request(`/articles/${slug}/comments/${commentId}`, { method: "delete" })
+}
+
 // ======= private helper functions ========
 
 async function request(
   url: string,
   options: {
-    method?: "get" | "post" | "delete"
+    method?: "get" | "post" | "put" | "delete"
     headers?: Record<string, string>
     body?: any
   } = {}
@@ -94,7 +149,7 @@ function prepareHeaders(method: string, headers?: Record<string, string>) {
     result["Authorization"] = `Token ${token}`
   }
 
-  if (method === "post") {
+  if (method === "post" || method === "put") {
     result["Content-Type"] = "application/json"
   }
 

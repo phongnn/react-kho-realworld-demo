@@ -2,7 +2,13 @@ import { LocalQuery, Query } from "react-kho"
 
 import { User } from "../common/types"
 import { ArticleType, UserType } from "./normalizedTypes"
-import { getFavArticles, getGlobalFeed, getUser, getUserArticles } from "../api"
+import {
+  getArticle,
+  getFavArticles,
+  getGlobalFeed,
+  getUser,
+  getUserArticles,
+} from "../api"
 
 export const signedInUserQuery = new LocalQuery<User>("SignedInUser", {
   shape: UserType,
@@ -22,6 +28,14 @@ export const userInfoQuery = new Query(
   (args: { username: string }) => getUser(args.username),
   {
     shape: UserType,
+  }
+)
+
+export const articleQuery = new Query(
+  "Article",
+  (args: { slug: string }) => getArticle(args.slug),
+  {
+    shape: ArticleType,
   }
 )
 

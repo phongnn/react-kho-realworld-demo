@@ -8,3 +8,7 @@ export const ArticleType = NormalizedType.register("Article", {
   keyFields: ["slug"],
   shape: { author: UserType },
 })
+
+export const CommentType = NormalizedType.register("Comment", {
+  shape: { author: UserType },
+})

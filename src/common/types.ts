@@ -3,7 +3,7 @@ export interface Article {
   title: string
   description: string
   body: string
-  tags?: string[]
+  tags: string[]
   createdAt: Date
   updatedAt: Date
   favoriteCount: number

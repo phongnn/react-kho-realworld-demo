@@ -8,10 +8,10 @@ import { renderWithRouter } from "../../../../../testUtils/render"
 test("should render article comment with correct details", async () => {
   const comment = allArticles[0].comments[0]
   // prettier-ignore
-  const { body, updatedAt, user: { username } } = comment
+  const { body, updatedAt, author: { username } } = comment
 
   const { getByText, getByRole } = renderWithRouter(
-    <CommentView comment={comment} />
+    <CommentView comment={comment} onDelete={jest.fn()} processing={false} />
   )
 
   expect(getByText(body)).toBeInTheDocument()

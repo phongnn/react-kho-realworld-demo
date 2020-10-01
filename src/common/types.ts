@@ -25,7 +25,7 @@ export interface Comment {
   body: string
   createdAt: Date
   updatedAt: Date
-  user: Partial<User>
+  author: Partial<User>
 }
 
 export interface ArticleListResult {

@@ -250,7 +250,7 @@ export const handlers = [
     ({ params: { slug } }, res, ctx) => {
       aliceArticles.splice(aliceArticles.findIndex(a => a.slug === slug), 1)
       allArticles.splice(allArticles.findIndex(a => a.slug === slug), 1)
-      return res(ctx.status(200))
+      return res(ctx.status(204))
     }
   ),
   rest.post(`${baseUrl}/articles/:slug/comments`, (req, res, ctx) => {
@@ -271,7 +271,7 @@ export const handlers = [
     )
   }),
   rest.delete(`${baseUrl}/articles/:slug/comments`, (req, res, ctx) => {
-    return res(ctx.status(200))
+    return res(ctx.status(204))
   }),
 ]
 
@@ -319,10 +319,10 @@ function transformArticle(article: typeof allArticles[0]) {
     comments: article.comments.map((c) => ({
       id: c.id,
       body: c.body,
-      updatedAt: c.updatedAt,
-      user: {
-        username: c.user.username,
-        image: c.user.image,
+      createdAt: c.createdAt,
+      author: {
+        username: c.author.username,
+        image: c.author.image,
       },
     })),
   }

@@ -127,14 +127,20 @@ async function request(
   } = {}
 ) {
   const { method = "get", headers, body } = options
+  const isJson = body && typeof body !== "string"
   const res = await fetch(`${config.api.baseUrl}${url}`, {
     method,
-    headers: prepareHeaders(method, headers),
-    body: body && typeof body !== "string" ? JSON.stringify(body) : body,
+    headers: prepareHeaders(isJson, headers),
+    body: isJson ? JSON.stringify(body) : body,
   })
 
   if (res.status >= 200 && res.status < 300) {
-    return await res.json()
+    const contentType = res.headers.get("content-type")
+    if (contentType && contentType.indexOf("application/json") !== -1) {
+      return await res.json()
+    } else {
+      return await res.text()
+    }
   } else if (res.status === 422) {
     return (await res.json()) as Errors
   } else {
@@ -142,18 +148,21 @@ async function request(
   }
 }
 
-function prepareHeaders(method: string, headers?: Record<string, string>) {
-  const result: Record<string, string> = {}
+function prepareHeaders(isJson: boolean, headers?: Record<string, string>) {
+  const result = new Headers()
   const token = getAccessToken()
   if (token) {
-    result["Authorization"] = `Token ${token}`
+    result.set("authorization", `Token ${token}`)
   }
-
-  if (method === "post" || method === "put") {
-    result["Content-Type"] = "application/json"
+  if (isJson) {
+    result.set("content-type", "application/json")
   }
-
-  return headers ? { ...result, ...headers } : result
+  if (headers) {
+    Object.entries(headers).forEach(([header, value]) =>
+      result.set(header, value)
+    )
+  }
+  return result
 }
 
 function transformLogInResult(data: { user: any }) {

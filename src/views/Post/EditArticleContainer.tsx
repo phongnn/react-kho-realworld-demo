@@ -18,10 +18,15 @@ function EditArticleContainer() {
   const [updateArticle, { loading: processing, error, data }] = useMutation(
     updateArticleMutation
   )
-
   const serverErrMsg = error
     ? "Unexpected error. Please try again later."
     : undefined
+
+  useEffect(() => {
+    if (data) {
+      browserHistory.push(`/articles/${slug}`)
+    }
+  }, [data])
 
   if (!user) {
     browserHistory.replace("/signup")
@@ -33,12 +38,6 @@ function EditArticleContainer() {
   } else if (!article) {
     return null
   }
-
-  useEffect(() => {
-    if (data) {
-      browserHistory.push(`/articles/${slug}`)
-    }
-  }, [data])
 
   return (
     <ArticleForm

@@ -12,21 +12,20 @@ function NewArticleContainer() {
   const [createArticle, { loading: processing, error, data }] = useMutation(
     createArticleMutation
   )
-
   const serverErrMsg = error
     ? "Unexpected error. Please try again later."
     : undefined
-
-  if (!user) {
-    browserHistory.replace("/signup")
-    return null
-  }
 
   useEffect(() => {
     if (data) {
       browserHistory.push(`/articles/${data.slug}`)
     }
   }, [data])
+
+  if (!user) {
+    browserHistory.replace("/signup")
+    return null
+  }
 
   return (
     <ArticleForm

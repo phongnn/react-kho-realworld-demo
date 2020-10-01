@@ -7,8 +7,8 @@ export const aliceArticles = [...Array(13)].map((_) => ({
   ...dummy.articleData(),
   author: alice,
   comments: [
-    { ...dummy.commentData(), user: bob },
-    { ...dummy.commentData(), user: alice },
+    { ...dummy.commentData(), author: bob },
+    { ...dummy.commentData(), author: alice },
   ],
 }))
 
@@ -16,9 +16,9 @@ export const bobArticles = [...Array(25)].map((_) => ({
   ...dummy.articleData(),
   author: bob,
   comments: [
-    { ...dummy.commentData(), user: alice },
-    { ...dummy.commentData(), user: bob },
-    { ...dummy.commentData(), user: bob },
+    { ...dummy.commentData(), author: alice },
+    { ...dummy.commentData(), author: bob },
+    { ...dummy.commentData(), author: bob },
   ],
 }))
 

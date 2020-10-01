@@ -12,8 +12,8 @@ function CommentView(props: {
   processing: boolean
 }) {
   const loggedInUser = useUser()
-  const { id, body, user, updatedAt } = props.comment
-  const { username, image } = user!
+  const { id, body, author, createdAt } = props.comment
+  const { username, image } = author!
   return (
     <div className="card">
       <div className="card-block">
@@ -31,7 +31,7 @@ function CommentView(props: {
         <Link to={`/users/${username}`} className="comment-author">
           {username}
         </Link>
-        <span className="date-posted">{formatDate(updatedAt!)}</span>
+        <span className="date-posted">{formatDate(createdAt!)}</span>
         {loggedInUser && loggedInUser.username === username && (
           <span className="mod-options">
             <i

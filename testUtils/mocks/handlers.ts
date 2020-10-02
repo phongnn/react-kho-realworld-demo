@@ -93,18 +93,19 @@ export const handlers = [
       })
     )
   }),
-  // graphql.mutation<UpdateProfileMutationResult, UpdateProfileMutationVariables>(
-  //   "UpdateProfile",
-  //   ({ variables: { input } }, res, ctx) =>
-  //     res(
-  //       ctx.data({
-  //         updateProfile: {
-  //           username: alice.username,
-  //           ...input,
-  //         },
-  //       })
-  //     )
-  // ),
+  rest.put(`${baseUrl}/user`, (req, res, ctx) => {
+    // @ts-ignore
+    const input = req.body.user
+    return res(
+      ctx.json({
+        user: {
+          username: alice.username,
+          token: accessToken,
+          ...input,
+        },
+      })
+    )
+  }),
   // graphql.mutation<LoginMutationResult, LoginMutationVariables>(
   //   "LogIn",
   //   ({ variables: { email, password } }, res, ctx) =>

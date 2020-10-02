@@ -1,10 +1,12 @@
 import React from "react"
-import { Link } from "react-router-dom"
+import { Link, useHistory } from "react-router-dom"
+import { useMutation } from "react-kho"
 
 import config from "../../../common/config"
 import { Article } from "../../../common/types"
 import { formatDate } from "../../../common/helpers"
-// import { useUser } from "../UserProvider"
+import { useUser } from "../UserProvider"
+import { favoriteArticleMutation } from "../../../store/mutations"
 
 function ArticleListItemView(props: {
   article: Partial<Article>
@@ -52,26 +54,23 @@ function ArticleListItemView(props: {
 }
 
 function ArticleListItemContainer(props: { article: Partial<Article> }) {
-  // const user = useUser()
-  // const routerHistory = useHistory()
-  // const [setFavorite, { loading: processingFavorite }] = useMutation<
-  //   FavoriteArticleMutationResult,
-  //   FavoriteArticleMutationVariables
-  // >(MUTATION_FAVORITE_ARTICLE)
-
-  // TODO: handle processing errors
+  const user = useUser()
+  const routerHistory = useHistory()
+  const [setFavorite, { loading: processingFavorite }] = useMutation(
+    favoriteArticleMutation
+  )
 
   return (
     <ArticleListItemView
       article={props.article}
       onFavoriteToggle={(slug, favorited) => {
-        // if (!user) {
-        //   routerHistory.push("/signup")
-        // } else {
-        // setFavorite({ variables: { slug, favorited } })
-        // }
+        if (!user) {
+          routerHistory.push("/signup")
+        } else {
+          setFavorite({ arguments: { slug, favorited } })
+        }
       }}
-      // processingFavorite={processingFavorite}
+      processingFavorite={processingFavorite}
     />
   )
 }

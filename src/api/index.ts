@@ -45,23 +45,6 @@ export async function getFavArticles(
   return result as ArticleListResult
 }
 
-export async function signInWithToken(token: string) {
-  const result = await request(`/user`, {
-    headers: {
-      authorization: `Token ${token}`,
-    },
-  })
-  return transformLogInResult(result)
-}
-
-export async function signUp(input: any) {
-  const result = await request(`/users`, {
-    method: "post",
-    body: { user: input },
-  })
-  return result.errors ? (result as Errors) : transformLogInResult(result)
-}
-
 export async function followUser(username: string) {
   await request(`/profiles/${username}/follow`, { method: "post" })
   return { username, following: true } as Partial<User>
@@ -114,6 +97,31 @@ export async function createComment(slug: string, input: any) {
 
 export async function deleteComment(slug: string, commentId: string) {
   await request(`/articles/${slug}/comments/${commentId}`, { method: "delete" })
+}
+
+export async function signUp(input: any) {
+  const result = await request(`/users`, {
+    method: "post",
+    body: { user: input },
+  })
+  return result.errors ? (result as Errors) : transformLogInResult(result)
+}
+
+export async function signInWithToken(token: string) {
+  const result = await request(`/user`, {
+    headers: {
+      authorization: `Token ${token}`,
+    },
+  })
+  return transformLogInResult(result)
+}
+
+export async function updateSettings(input: any) {
+  const result = await request(`/user`, {
+    method: "put",
+    body: { user: input },
+  })
+  return result.errors ? (result as Errors) : transformLogInResult(result)
 }
 
 // ======= private helper functions ========

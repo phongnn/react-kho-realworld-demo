@@ -10,7 +10,7 @@ import SignUpFormContainer from "./SignUp/SignUpFormContainer"
 // import SignInFormContainer from "./SignIn/SignInFormContainer"
 import NewArticleContainer from "./Post/NewArticleContainer"
 import EditArticleContainer from "./Post/EditArticleContainer"
-// import SettingsFormContainer from "./Settings/SettingsFormContainer"
+import SettingsFormContainer from "./Settings/SettingsFormContainer"
 
 function App() {
   return (
@@ -23,8 +23,8 @@ function App() {
         <Route path="/users/:username" component={UserPage} />
         <Route path="/post" component={NewArticleContainer} />
         <Route path="/edit/:slug" component={EditArticleContainer} />
-        {/* <Route path="/settings" component={SettingsFormContainer} />
-        <Route path="/feed" component={HomePage} />
+        <Route path="/settings" component={SettingsFormContainer} />
+        {/* <Route path="/feed" component={HomePage} />
         <Route path="/tags/:tag" component={HomePage} />*/}
         <Route component={HomePage} />
       </Switch>

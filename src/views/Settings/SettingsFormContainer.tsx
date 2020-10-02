@@ -31,10 +31,10 @@ function SettingsFormContainer() {
   useEffect(() => {
     if (signedOut) {
       browserHistory.push("/")
-    } else if (updated && !updatingError) {
+    } else if (updated && !serverErrors) {
       browserHistory.push(`/users/${loggedInUser!.username}`)
     }
-  }, [updatingError, updated, signedOut])
+  }, [updated, serverErrors, signedOut])
 
   if (!loggedInUser) {
     browserHistory.replace("/signup")

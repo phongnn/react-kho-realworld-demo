@@ -8,9 +8,30 @@ import {
 } from "../common/types"
 import { getAccessToken } from "../accessToken"
 
-export async function getUser(username: string) {
-  const result = await request(`/profiles/${username}`)
-  return setAvatarPlaceholder(result.profile)
+export async function getGlobalFeed(limit: number, offset: number) {
+  const result = await request(`/articles?limit=${limit}&offset=${offset}`)
+  return result as ArticleListResult
+}
+
+export async function getYourFeed(limit: number, offset: number) {
+  const result = await request(`/feed?limit=${limit}&offset=${offset}`)
+  return result as ArticleListResult
+}
+
+export async function getPopularTags() {
+  const result = await request(`/tags`)
+  return result.tags as string[]
+}
+
+export async function getArticlesByTag(
+  tag: string,
+  limit: number,
+  offset: number
+) {
+  const result = await request(
+    `/articles?tag=${tag}&limit=${limit}&offset=${offset}`
+  )
+  return result as ArticleListResult
 }
 
 export async function getArticle(slug: string) {
@@ -18,9 +39,9 @@ export async function getArticle(slug: string) {
   return result.article as Article
 }
 
-export async function getGlobalFeed(limit: number, offset: number) {
-  const result = await request(`/articles?limit=${limit}&offset=${offset}`)
-  return result as ArticleListResult
+export async function getUser(username: string) {
+  const result = await request(`/profiles/${username}`)
+  return setAvatarPlaceholder(result.profile)
 }
 
 export async function getUserArticles(

@@ -19,7 +19,7 @@ it("shows home page for anonymous user if token is invalid", async () => {
   saveAccessToken("blah")
   renderRoute("/")
 
-  await waitForElementToBeRemoved(screen.getByText(/loading/i))
+  await waitForElementToBeRemoved(screen.getByText(/loading articles/i))
   // prettier-ignore
   expect(await screen.findByRole("link", { name: "Sign up" })).toBeInTheDocument()
   // expect(getAccessToken()).toBeFalsy()
@@ -28,7 +28,7 @@ it("shows home page for anonymous user if token is invalid", async () => {
 it("shows home page for logged in user if token is valid", async () => {
   renderProtectedRoute("/")
 
-  await waitForElementToBeRemoved(screen.getByText(/loading/i))
+  await waitForElementToBeRemoved(screen.getByText(/loading articles/i))
   // prettier-ignore
   expect(await screen.findByRole("link", { name: "Settings" })).toBeInTheDocument()
 })
@@ -74,7 +74,7 @@ it("shows feed when click on Your Feed link", async () => {
   renderProtectedRoute("/")
 
   userEvent.click(await screen.findByRole("link", { name: "Your Feed" }))
-  await waitForElementToBeRemoved(screen.getByText(/loading/i))
+  await waitForElementToBeRemoved(screen.getByText(/loading articles/i))
 
   getFeedArticles(alice.username)
     .slice(0, config.pagination.pageSize)

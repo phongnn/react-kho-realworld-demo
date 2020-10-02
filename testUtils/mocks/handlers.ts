@@ -3,14 +3,14 @@ import { rest } from "msw"
 import {
   allArticles,
   accessToken,
-  // popularTags,
-  // getArticlesByTag,
+  popularTags,
+  getArticlesByTag,
   alice,
   aliceArticles,
   getFavArticles,
   bob,
   bobArticles,
-  // getFeedArticles,
+  getFeedArticles,
 } from "./data"
 import config from "../../src/common/config"
 
@@ -21,9 +21,12 @@ export const handlers = [
   rest.get(`${baseUrl}/articles`, ({ url }, res, ctx) => {
     const limit = parseInt(url.searchParams.get("limit")!)
     const offset = parseInt(url.searchParams.get("offset")!)
+    const tag = url.searchParams.get("tag")
     const author = url.searchParams.get("author")
     const favorited = url.searchParams.get("favorited")
-    const articles = favorited
+    const articles = tag
+      ? getArticlesByTag(tag)
+      : favorited
       ? getFavArticles(favorited)
       : author === "alice"
       ? aliceArticles
@@ -32,31 +35,18 @@ export const handlers = [
       : allArticles
     return res(ctx.json(transformArticleList(articles, limit, offset)))
   }),
-  // graphql.query<YourFeedQueryResult, YourFeedQueryVariables>(
-  //   "GetYourFeed",
-  //   ({ variables: { limit, offset } }, res, ctx) =>
-  //     res(
-  //       ctx.data({
-  //         feed: transformArticleList(
-  //           getFeedArticles(alice.username),
-  //           limit,
-  //           offset
-  //         ),
-  //       })
-  //     )
-  // ),
-  // graphql.query<PopularTagsQueryResult>("GetPopularTags", (req, res, ctx) =>
-  //   res(ctx.data({ tags: popularTags }))
-  // ),
-  // graphql.query<ArticlesByTagQueryResult, ArticlesByTagQueryVariables>(
-  //   "GetArticlesByTag",
-  //   ({ variables: { tag, limit, offset } }, res, ctx) =>
-  //     res(
-  //       ctx.data({
-  //         tag: transformArticleList(getArticlesByTag(tag), limit, offset),
-  //       })
-  //     )
-  // ),
+  rest.get(`${baseUrl}/feed`, ({ url }, res, ctx) => {
+    const limit = parseInt(url.searchParams.get("limit")!)
+    const offset = parseInt(url.searchParams.get("offset")!)
+    return res(
+      ctx.json(
+        transformArticleList(getFeedArticles(alice.username), limit, offset)
+      )
+    )
+  }),
+  rest.get(`${baseUrl}/tags`, (req, res, ctx) =>
+    res(ctx.json({ tags: popularTags }))
+  ),
   rest.get(`${baseUrl}/articles/:slug`, ({ params: { slug } }, res, ctx) =>
     res(
       ctx.json({

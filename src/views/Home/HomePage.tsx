@@ -3,9 +3,9 @@ import { NavLink, useParams, Switch, Route } from "react-router-dom"
 
 import { useUser } from "../__shared__/UserProvider"
 import GlobalFeedContainer from "./GlobalFeedContainer"
-// import YourFeedContainer from "./YourFeedContainer"
-// import PopularTagsContainer from "./PopularTagsContainer"
-// import TagViewContainer from "./TagViewContainer"
+import YourFeedContainer from "./YourFeedContainer"
+import PopularTagsContainer from "./PopularTagsContainer"
+import TagViewContainer from "./TagViewContainer"
 
 function Banner() {
   return (
@@ -58,17 +58,19 @@ function Home() {
           <div className="col-md-9">
             <TabBar tag={tag} authenticated={authenticated} />
             <Switch>
-              {/* <Route
+              <Route
                 path="/tags/:tag"
                 render={() => <TagViewContainer tag={tag} />}
               />
               {authenticated && (
                 <Route path="/feed" component={YourFeedContainer} />
-              )} */}
+              )}
               <Route component={GlobalFeedContainer} />
             </Switch>
           </div>
-          <div className="col-md-3">{/* <PopularTagsContainer /> */}</div>
+          <div className="col-md-3">
+            <PopularTagsContainer />
+          </div>
         </div>
       </div>
     </div>

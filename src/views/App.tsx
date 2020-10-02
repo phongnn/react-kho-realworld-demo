@@ -7,7 +7,7 @@ import HomePage from "./Home/HomePage"
 import UserPage from "./User/UserPage"
 import ArticleViewContainer from "./Article/ArticleViewContainer"
 import SignUpFormContainer from "./SignUp/SignUpFormContainer"
-// import SignInFormContainer from "./SignIn/SignInFormContainer"
+import SignInFormContainer from "./SignIn/SignInFormContainer"
 import NewArticleContainer from "./Post/NewArticleContainer"
 import EditArticleContainer from "./Post/EditArticleContainer"
 import SettingsFormContainer from "./Settings/SettingsFormContainer"
@@ -18,14 +18,14 @@ function App() {
       <Header />
       <Switch>
         <Route path="/signup" component={SignUpFormContainer} />
-        {/* <Route path="/signin" component={SignInFormContainer} />*/}
+        <Route path="/signin" component={SignInFormContainer} />
         <Route path="/articles/:slug" component={ArticleViewContainer} />
         <Route path="/users/:username" component={UserPage} />
         <Route path="/post" component={NewArticleContainer} />
         <Route path="/edit/:slug" component={EditArticleContainer} />
         <Route path="/settings" component={SettingsFormContainer} />
-        {/* <Route path="/feed" component={HomePage} />
-        <Route path="/tags/:tag" component={HomePage} />*/}
+        <Route path="/feed" component={HomePage} />
+        <Route path="/tags/:tag" component={HomePage} />
         <Route component={HomePage} />
       </Switch>
       <Footer />

@@ -107,6 +107,14 @@ export async function signUp(input: any) {
   return result.errors ? (result as Errors) : transformLogInResult(result)
 }
 
+export async function signIn(input: any) {
+  const result = await request(`/users/login`, {
+    method: "post",
+    body: { user: input },
+  })
+  return result.errors ? (result as Errors) : transformLogInResult(result)
+}
+
 export async function signInWithToken(token: string) {
   const result = await request(`/user`, {
     headers: {

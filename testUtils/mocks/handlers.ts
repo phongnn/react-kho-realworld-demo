@@ -106,25 +106,26 @@ export const handlers = [
       })
     )
   }),
-  // graphql.mutation<LoginMutationResult, LoginMutationVariables>(
-  //   "LogIn",
-  //   ({ variables: { email, password } }, res, ctx) =>
-  //     res(
-  //       email === alice.email && password === alice.password
-  //         ? ctx.data({
-  //             login: {
-  //               user: {
-  //                 username: alice.username,
-  //                 email: alice.email,
-  //                 bio: alice.bio,
-  //                 image: alice.image,
-  //               },
-  //               token: accessToken,
-  //             },
-  //           })
-  //         : ctx.errors([{ message: "Invalid email or password." }])
-  //     )
-  // ),
+  rest.post(`${baseUrl}/users/login`, (req, res, ctx) => {
+    // @ts-ignore
+    const { email, password } = req.body.user
+    return email === alice.email && password === alice.password
+      ? res(
+          ctx.json({
+            user: {
+              username: alice.username,
+              email: alice.email,
+              bio: alice.bio,
+              image: alice.image,
+            },
+            token: accessToken,
+          })
+        )
+      : res(
+          ctx.status(422),
+          ctx.json({ errors: { server: "Invalid email or password." } })
+        )
+  }),
   rest.get(`${baseUrl}/user`, ({ headers }, res, ctx) =>
     headers.get("authorization") === authHeader
       ? res(

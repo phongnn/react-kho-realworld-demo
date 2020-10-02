@@ -2,7 +2,7 @@ import { Mutation } from "react-kho"
 
 import { UserType } from "../normalizedTypes"
 import { signedInUserQuery } from "../queries"
-import { signInWithToken, signUp, updateSettings } from "../../api"
+import { signIn, signInWithToken, signUp, updateSettings } from "../../api"
 import {
   getAccessToken,
   removeAccessToken,
@@ -49,12 +49,27 @@ export const signUpMutation = new Mutation(
   }
 )
 
+export const signInMutation = new Mutation(
+  "SignIn",
+  (args: { email: string; password: string }) => signIn(args),
+  {
+    shape: { user: UserType },
+    afterQueryUpdates: async (store, { mutationResult }) => {
+      if ((mutationResult as LogInResult).token) {
+        const { user, token } = mutationResult as LogInResult
+        saveAccessToken(token)
+        await store.resetStore()
+        store.setQueryData(signedInUserQuery, user)
+      }
+    },
+  }
+)
+
 export const signOutMutation = new Mutation(
   "SignOut",
   () => Promise.resolve(),
   {
     afterQueryUpdates: (store) => store.resetStore(),
-    // syncMode: true,
   }
 )
 

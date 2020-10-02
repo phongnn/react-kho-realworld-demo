@@ -54,7 +54,7 @@ export const signOutMutation = new Mutation(
   () => Promise.resolve(),
   {
     afterQueryUpdates: (store) => store.resetStore(),
-    syncMode: true,
+    // syncMode: true,
   }
 )
 

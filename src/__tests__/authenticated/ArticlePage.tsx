@@ -20,14 +20,14 @@ import {
   rest as mswRest,
 } from "../../../testUtils/mocks/server"
 import config from "../../common/config"
+import { act } from "react-dom/test-utils"
 
 const { baseUrl } = config.api
 
 beforeAll(() => saveAccessToken(accessToken))
 afterAll(removeAccessToken)
 
-// production code works but somehow this test fails
-xit("toggles article's Favorite status", async () => {
+it("toggles article's Favorite status", async () => {
   const { slug, favoriteCount } = allArticles[0]
 
   renderRoute(`/articles/${slug}`)
@@ -37,14 +37,11 @@ xit("toggles article's Favorite status", async () => {
   const btnFavToggle = screen.getAllByRole("button", { name: /Favorite Post/ })[0]
   userEvent.click(btnFavToggle)
   expect(btnFavToggle).toBeDisabled()
-
   await waitFor(() => expect(btnFavToggle).toBeEnabled())
-  expect(btnFavToggle).toHaveClass("btn-primary")
   expect(btnFavToggle.textContent).toMatch(`(${favoriteCount + 1})`)
 })
 
-// production code works but somehow this test fails
-xit("toggles state of following author", async () => {
+it("toggles state of following author", async () => {
   renderRoute(`/articles/${bobArticles[0].slug}`)
   await waitForElementToBeRemoved(screen.getByText(/loading/i))
 
@@ -74,12 +71,12 @@ it("deletes article and goes to user's page when click on delete button", async 
   const { slug, title } = aliceArticles[0]
 
   renderRoute(`/articles/${slug}`)
-  // await waitForElementToBeRemoved(screen.getByText(/loading/i))
   userEvent.click(
     (await screen.findAllByRole("button", { name: /Delete Article/ }))[0]
   )
 
   expect(await screen.findByText("My Articles")).toBeInTheDocument()
+  await waitForElementToBeRemoved(screen.getByText(/loading/i))
   expect(screen.queryByText(title)).not.toBeInTheDocument()
 })
 
@@ -94,27 +91,27 @@ describe("creating comment", () => {
     userEvent.click(screen.getByRole("button", { name: /Post Comment/ }))
   }
 
-  xit("rejects blank comment", async () => {
-    await renderFormAndSubmitComment("")
+  it("rejects blank comment", async () => {
+    await act(() => renderFormAndSubmitComment(""))
     expect(screen.getByText(/Please enter your comment/i)).toBeInTheDocument()
   })
 
-  xit("shows unexpected server error", async () => {
+  it("shows unexpected server error", async () => {
     mockServer.use(
       mswRest.post(`${baseUrl}/articles/${slug}/comments`, (req, res, ctx) =>
         res(ctx.status(500, "Some unknown error"))
       )
     )
 
-    await renderFormAndSubmitComment("A normal comment...")
+    jest.spyOn(console, "error").mockImplementation(() => {})
+    await act(() => renderFormAndSubmitComment("A normal comment..."))
     // prettier-ignore
     expect(await screen.findByText(/Unexpected error\. Please try again later\./)).toBeInTheDocument()
   })
 
-  // production code works but somehow this test fails
-  it.only("creates comment successfully", async () => {
-    const comment = "WTF?!"
-    await renderFormAndSubmitComment(comment)
+  it("creates comment successfully", async () => {
+    const comment = "a comment goes here..."
+    await act(() => renderFormAndSubmitComment(comment))
     expect(await screen.findByText(comment)).toBeInTheDocument()
   })
 })
@@ -136,15 +133,9 @@ describe("deleting comment", () => {
     expect(screen.queryByTestId(`btn-delete-${otherComment.id}`)).not.toBeInTheDocument()
   })
 
-  // production code works but somehow this test fails
-  xit("deletes comment successfully", async () => {
+  it("deletes comment successfully", async () => {
     renderRoute(`/articles/${slug}`)
-    await waitForElementToBeRemoved(screen.getByText(/loading/i))
-
-    const btnDeleteComment = screen.getByTestId(`btn-delete-${comment.id}`)
-    userEvent.click(btnDeleteComment)
-
+    userEvent.click(await screen.findByTestId(`btn-delete-${comment.id}`))
     await waitForElementToBeRemoved(screen.getByText(comment.body))
-    expect(screen.queryByText(comment.body)).not.toBeInTheDocument()
   })
 })

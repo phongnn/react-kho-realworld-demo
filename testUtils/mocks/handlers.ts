@@ -270,9 +270,12 @@ export const handlers = [
       })
     )
   }),
-  rest.delete(`${baseUrl}/articles/:slug/comments`, (req, res, ctx) => {
-    return res(ctx.status(204))
-  }),
+  rest.delete(
+    `${baseUrl}/articles/:slug/comments/:commentId`,
+    (req, res, ctx) => {
+      return res(ctx.status(204))
+    }
+  ),
 ]
 
 function transformArticleList(

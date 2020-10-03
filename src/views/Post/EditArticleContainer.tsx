@@ -24,9 +24,9 @@ function EditArticleContainer() {
 
   useEffect(() => {
     if (data) {
-      browserHistory.push(`/articles/${slug}`)
+      browserHistory.push(`/articles/${data.slug}`)
     }
-  }, [data])
+  }, [data, browserHistory])
 
   if (!user) {
     browserHistory.replace("/signup")

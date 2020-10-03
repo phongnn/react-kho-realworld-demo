@@ -20,7 +20,7 @@ function NewArticleContainer() {
     if (data) {
       browserHistory.push(`/articles/${data.slug}`)
     }
-  }, [data])
+  }, [data, browserHistory])
 
   if (!user) {
     browserHistory.replace("/signup")

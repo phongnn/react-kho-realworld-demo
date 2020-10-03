@@ -34,7 +34,7 @@ function SettingsFormContainer() {
     } else if (updated && !serverErrors) {
       browserHistory.push(`/users/${loggedInUser!.username}`)
     }
-  }, [updated, serverErrors, signedOut])
+  }, [updated, serverErrors, signedOut, browserHistory, loggedInUser])
 
   if (!loggedInUser) {
     browserHistory.replace("/signup")

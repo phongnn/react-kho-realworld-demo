@@ -107,8 +107,8 @@ export const handlers = [
               email: alice.email,
               bio: alice.bio,
               image: alice.image,
+              token: accessToken,
             },
-            token: accessToken,
           })
         )
       : res(

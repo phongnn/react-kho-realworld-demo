@@ -25,7 +25,7 @@ export function articleData() {
     title: faker.random.words(Math.max(1, faker.random.number(10))),
     description: faker.lorem.sentences(2),
     body: faker.lorem.paragraphs(3),
-    tags: randomTags(),
+    tagList: randomTags(),
     createdAt: faker.date.past(),
     updatedAt: new Date(),
     favoriteCount: faker.random.number(100),

@@ -41,11 +41,11 @@ function EditArticleContainer() {
 
   return (
     <ArticleForm
-      onSubmit={({ title, description, body, tags }) => {
+      onSubmit={({ title, description, body, tagList }) => {
         updateArticle({
           arguments: {
             slug,
-            input: { title, description, body, tags },
+            input: { title, description, body, tagList },
           },
         })
       }}

@@ -21,16 +21,16 @@ const submitForm = async (article: {
   title: string
   description: string
   body: string
-  tags: string[]
+  tagList: string[]
 }) => {
-  const { title, description, body, tags } = article
+  const { title, description, body, tagList } = article
   await userEvent.type(screen.getByPlaceholderText("Article Title"), title)
   // prettier-ignore
   await userEvent.type(screen.getByPlaceholderText("What's this article about?"), description)
   // prettier-ignore
   await userEvent.type(screen.getByPlaceholderText("Write your article (in markdown)"), body)
-  for (let i = 0; i < tags.length; i++) {
-    await addTag(tags[i])
+  for (let i = 0; i < tagList.length; i++) {
+    await addTag(tagList[i])
   }
   userEvent.click(screen.getByRole("button", { name: "Publish Article" }))
 }
@@ -137,11 +137,11 @@ it("shows unexpected server error", async () => {
 })
 
 it("goes to article page after successful creation", async () => {
-  const { title, description, body, tags } = dummy.articleData()
+  const { title, description, body, tagList } = dummy.articleData()
   renderProtectedRoute("/post")
-  await submitForm({ title, description, body, tags })
+  await submitForm({ title, description, body, tagList })
   // prettier-ignore
   expect((await screen.findAllByRole("link", { name: /Edit Article/ }))[0]).toBeInTheDocument()
   expect(screen.getByText(title)).toBeInTheDocument()
-  tags.forEach((tag) => expect(screen.getByText(tag)).toBeInTheDocument())
+  tagList.forEach((tag) => expect(screen.getByText(tag)).toBeInTheDocument())
 })

@@ -35,7 +35,7 @@ export const handlers = [
       : allArticles
     return res(ctx.json(transformArticleList(articles, limit, offset)))
   }),
-  rest.get(`${baseUrl}/feed`, ({ url }, res, ctx) => {
+  rest.get(`${baseUrl}/articles/feed`, ({ url }, res, ctx) => {
     const limit = parseInt(url.searchParams.get("limit")!)
     const offset = parseInt(url.searchParams.get("offset")!)
     return res(
@@ -188,11 +188,11 @@ export const handlers = [
     // prettier-ignore
     (req, res, ctx) => {
       // @ts-ignore
-      const { title, description, body, tags } = req.body.article
+      const { title, description, body, tagList } = req.body.article
       const slug = `article-slug-${randomNumber()}`
       const now = new Date()
       const article = {
-        slug, title, description, body, tags, favoriteCount: 0, comments: [], author: alice, createdAt: now, updatedAt: now
+        slug, title, description, body, tagList, favoriteCount: 0, comments: [], author: alice, createdAt: now, updatedAt: now
       }
       aliceArticles.unshift(article)
       allArticles.unshift(article)
@@ -203,7 +203,7 @@ export const handlers = [
             title,
             description,
             body,
-            tags,
+            tagList,
             author: alice,
             createdAt: now,
             updatedAt: now
@@ -218,11 +218,11 @@ export const handlers = [
     (req, res, ctx) => {
       const { slug } = req.params
       // @ts-ignore
-      const { title, description, body, tags } = req.body.article
+      const { title, description, body, tagList } = req.body.article
       const now = new Date()
       Object.assign(
         aliceArticles.find(a => a.slug === slug),
-        { title, description, body, tags, updatedAt: now }
+        { title, description, body, tagList, updatedAt: now }
       )
       return res(
         ctx.json({
@@ -231,7 +231,7 @@ export const handlers = [
             title,
             description,
             body,
-            tags,
+            tagList,
             updatedAt: now
           },
         })
@@ -304,7 +304,7 @@ function transformArticle(article: typeof allArticles[0]) {
     title: article.title,
     description: article.description,
     body: article.body,
-    tags: article.tags,
+    tagList: article.tagList,
     updatedAt: article.updatedAt,
     author: {
       username: article.author.username,

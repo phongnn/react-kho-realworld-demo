@@ -29,9 +29,9 @@ function NewArticleContainer() {
 
   return (
     <ArticleForm
-      onSubmit={({ title, description, body, tags }) => {
+      onSubmit={({ title, description, body, tagList }) => {
         createArticle({
-          arguments: { title, description, body, tags },
+          arguments: { title, description, body, tagList },
         })
       }}
       processing={processing}

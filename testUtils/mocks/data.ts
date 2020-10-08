@@ -27,7 +27,7 @@ export const allArticles = [...aliceArticles, ...bobArticles].sort(
 )
 
 const tagFreq = allArticles.reduce((tmp: Record<string, number>, a) => {
-  a.tags.forEach((t) => (tmp[t] = (tmp[t] || 0) + 1))
+  a.tagList.forEach((t) => (tmp[t] = (tmp[t] || 0) + 1))
   return tmp
 }, {})
 
@@ -36,7 +36,7 @@ export const popularTags = Object.keys(tagFreq).sort(
 )
 
 export function getArticlesByTag(tag: string) {
-  return allArticles.filter((a) => a.tags.includes(tag))
+  return allArticles.filter((a) => a.tagList.includes(tag))
 }
 
 export function getFavArticles(username: string) {

@@ -30,9 +30,9 @@ const submitForm = async (input: {
   title: string
   description: string
   body: string
-  tags: string[]
+  tagList: string[]
 }) => {
-  const { title, description, body, tags } = input
+  const { title, description, body, tagList } = input
 
   userEvent.clear(getTitleInput())
   await userEvent.type(getTitleInput(), title)
@@ -43,8 +43,8 @@ const submitForm = async (input: {
   userEvent.clear(getBodyInput())
   await userEvent.type(getBodyInput(), body)
 
-  for (let i = 0; i < tags.length; i++) {
-    await addTag(tags[i])
+  for (let i = 0; i < tagList.length; i++) {
+    await addTag(tagList[i])
   }
 
   userEvent.click(screen.getByRole("button", { name: "Publish Article" }))
@@ -101,18 +101,18 @@ it("shows unexpected server error", async () => {
 })
 
 it("goes to article page after successful update", async () => {
-  const { title, description, body, tags } = dummy.articleData()
+  const { title, description, body, tagList } = dummy.articleData()
 
   renderProtectedRoute(`/edit/${article.slug}`)
   await waitForElementToBeRemoved(screen.getByText(/loading/i))
 
-  article.tags.forEach((tag) =>
+  article.tagList.forEach((tag) =>
     userEvent.click(screen.getByTestId(`btn-delete-${tag}`))
   )
-  await submitForm({ title, description, body, tags })
+  await submitForm({ title, description, body, tagList })
 
   // prettier-ignore
   expect((await screen.findAllByRole("link", { name: /Edit Article/ }))[0]).toBeInTheDocument()
   // expect(screen.getByText(title)).toBeInTheDocument()
-  // tags.forEach((tag) => expect(screen.getByText(tag)).toBeInTheDocument())
+  // tagList.forEach((tag) => expect(screen.getByText(tag)).toBeInTheDocument())
 })

@@ -10,7 +10,11 @@ import {
   updateArticle,
 } from "../../api"
 import { ArticleType, CommentType } from "../normalizedTypes"
-import { userArticlesQuery } from "../queries"
+import {
+  favArticlesQuery,
+  signedInUserQuery,
+  userArticlesQuery,
+} from "../queries"
 
 export const createArticleMutation = new Mutation(
   "CreateArticle",
@@ -18,7 +22,7 @@ export const createArticleMutation = new Mutation(
     title: string
     description: string
     body: string
-    tags: string[]
+    tagList: string[]
   }) => createArticle(args),
   {
     shape: ArticleType,
@@ -41,7 +45,7 @@ export const updateArticleMutation = new Mutation(
       title: string
       description: string
       body: string
-      tags: string[]
+      tagList: string[]
     }
   }) => updateArticle(args.slug, args.input),
   {
@@ -67,6 +71,15 @@ export const favoriteArticleMutation = new Mutation(
   },
   {
     shape: ArticleType,
+    afterQueryUpdates(store) {
+      const user = store.getQueryData(signedInUserQuery)!
+      store.refetchQueries([
+        favArticlesQuery.withOptions({
+          // @ts-ignore
+          arguments: { username: user.username },
+        }),
+      ])
+    },
   }
 )
 

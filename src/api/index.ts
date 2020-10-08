@@ -14,7 +14,7 @@ export async function getGlobalFeed(limit: number, offset: number) {
 }
 
 export async function getYourFeed(limit: number, offset: number) {
-  const result = await request(`/feed?limit=${limit}&offset=${offset}`)
+  const result = await request(`/articles/feed?limit=${limit}&offset=${offset}`)
   return result as ArticleListResult
 }
 

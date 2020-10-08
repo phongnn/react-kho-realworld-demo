@@ -7,7 +7,7 @@ interface ArticleInput {
   title: string
   description: string
   body: string
-  tags: string[]
+  tagList: string[]
 }
 
 export interface ArticleFormHandler {
@@ -21,13 +21,13 @@ function ArticleForm(props: {
   existingArticle?: ArticleInput
 }) {
   const { register, handleSubmit: validateAndSubmit, errors } = useForm()
-  const [tags, setTags] = useState(props.existingArticle?.tags || [])
+  const [tagList, setTagList] = useState(props.existingArticle?.tagList || [])
   const handleSubmit = (data: Record<string, any>) => {
     props.onSubmit({
       title: data.title.trim(),
       description: data.description.trim(),
       body: data.body,
-      tags,
+      tagList,
     })
   }
 
@@ -108,19 +108,19 @@ function ArticleForm(props: {
               </fieldset>
             </form>
             <div className="tag-list">
-              {tags.map((tag) => (
+              {tagList.map((tag) => (
                 <span className="tag-default tag-pill" key={tag}>
                   <i
                     className="ion-close-round"
                     data-testid={`btn-delete-${tag}`}
-                    onClick={() => setTags(tags.filter((t) => t !== tag))}
+                    onClick={() => setTagList(tagList.filter((t) => t !== tag))}
                   ></i>
                   {tag}
                 </span>
               ))}
               <NewTagFormWrapper
                 onSubmit={(tag) =>
-                  !tags.includes(tag) && setTags([...tags, tag])
+                  !tagList.includes(tag) && setTagList([...tagList, tag])
                 }
               />
             </div>

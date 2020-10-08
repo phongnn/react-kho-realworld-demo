@@ -97,7 +97,7 @@ export function ArticleBody(props: { article: Partial<Article> }) {
         />
         <br />
         <ul className="tag-list">
-          {props.article.tags?.map((tag) => (
+          {props.article.tagList?.map((tag) => (
             <li key={tag} className="tag-default tag-pill tag-outline">
               <Link to={`/tags/${tag}`}>{tag}</Link>
             </li>

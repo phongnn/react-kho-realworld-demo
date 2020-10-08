@@ -6,6 +6,7 @@ import { render } from "@testing-library/react"
 import App from "../src/views/App"
 import UserProvider, { UserContext } from "../src/views/__shared__/UserProvider"
 import { alice } from "./mocks/data"
+import { signedInUserQuery } from "../src/store/queries"
 
 export function renderWithProviders(ui: React.ReactElement) {
   const store = createStore()
@@ -31,6 +32,8 @@ export function renderRoute(path: string) {
 
 export function renderProtectedRoute(path: string) {
   const store = createStore()
+  store.setQueryData(signedInUserQuery, alice)
+
   return render(
     <Router initialEntries={[path]}>
       <Provider store={store}>

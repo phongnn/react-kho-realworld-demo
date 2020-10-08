@@ -41,7 +41,7 @@ it("renders article body from Markdown text plus the tags", async () => {
   // prettier-ignore
   expect(screen.getByRole("heading", { name: "This is a heading" })).toBeInTheDocument()
 
-  article.tags.forEach((tag) =>
+  article.tagList.forEach((tag) =>
     expect(screen.getByRole("link", { name: tag })).toBeInTheDocument()
   )
 })

@@ -204,6 +204,8 @@ export const handlers = [
             description,
             body,
             tags,
+            author: alice,
+            createdAt: now,
             updatedAt: now
           },
         })

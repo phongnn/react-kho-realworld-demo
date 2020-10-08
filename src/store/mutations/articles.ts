@@ -10,6 +10,7 @@ import {
   updateArticle,
 } from "../../api"
 import { ArticleType, CommentType } from "../normalizedTypes"
+import { userArticlesQuery } from "../queries"
 
 export const createArticleMutation = new Mutation(
   "CreateArticle",
@@ -21,8 +22,13 @@ export const createArticleMutation = new Mutation(
   }) => createArticle(args),
   {
     shape: ArticleType,
-    afterQueryUpdates(store) {
-      // store.refetchQueries([]) // TODO: refetch "MyArticles"
+    afterQueryUpdates(store, { mutationResult: article }) {
+      store.refetchQueries([
+        userArticlesQuery.withOptions({
+          // @ts-ignore
+          arguments: { username: article.author.username },
+        }),
+      ])
     },
   }
 )
@@ -89,11 +95,6 @@ export const deleteCommentMutation = new Mutation(
   {
     shape: CommentType,
     beforeQueryUpdates(cache, { mutationArgs: { commentId } }) {
-      // const article = cache.readObject(
-      //   cache.findObjectRef(ArticleType, { slug })!
-      // )
-      // article.comments = article.comments.filter((c: any) => !c.key.matches(commentId))
-
       cache.deleteObject(cache.findObjectRef(CommentType, { id: commentId })!)
     },
   }

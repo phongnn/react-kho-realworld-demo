@@ -2,6 +2,7 @@ import { Mutation } from "react-kho"
 
 import { followUser, unfollowUser } from "../../api"
 import { UserType } from "../normalizedTypes"
+import { yourFeedQuery } from "../queries"
 
 export const followUserMutation = new Mutation(
   "FollowUser",
@@ -12,7 +13,7 @@ export const followUserMutation = new Mutation(
   {
     shape: UserType,
     afterQueryUpdates(store) {
-      store.refetchQueries([]) // TODO: refetch "MyFeed"
+      store.refetchQueries([yourFeedQuery])
     },
   }
 )

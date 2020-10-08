@@ -69,7 +69,10 @@ export const signOutMutation = new Mutation(
   "SignOut",
   () => Promise.resolve(),
   {
-    afterQueryUpdates: (store) => store.resetStore(),
+    afterQueryUpdates: (store) => {
+      removeAccessToken()
+      store.resetStore()
+    },
   }
 )
 

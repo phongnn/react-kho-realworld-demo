@@ -1,7 +1,7 @@
 import { screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-
-import { saveAccessToken, removeAccessToken } from "../../accessToken"
+// prettier-ignore
+import { saveAccessToken, removeAccessToken, getAccessToken } from "../../accessToken"
 import { renderRoute } from "../../../testUtils/render"
 import { accessToken } from "../../../testUtils/mocks/data"
 
@@ -21,4 +21,5 @@ it("clears cache and goes to home page", async () => {
     await screen.findByRole("link", { name: "Sign up" })
   ).toBeInTheDocument()
   expect(screen.getByText("Global Feed")).toBeInTheDocument()
+  expect(getAccessToken()).toBeFalsy()
 })

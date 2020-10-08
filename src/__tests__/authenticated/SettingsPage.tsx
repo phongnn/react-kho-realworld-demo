@@ -69,7 +69,7 @@ describe("validates input", () => {
   })
 
   it("rejects invalid image URL", async () => {
-    await executeTest({ image: "http://blah" }, /Invalid image URL/)
+    await executeTest({ image: "blah" }, /Invalid image URL/)
   })
 })
 

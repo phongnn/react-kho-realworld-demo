@@ -12,6 +12,7 @@ import {
 import { ArticleType, CommentType } from "../normalizedTypes"
 import {
   favArticlesQuery,
+  globalFeedQuery,
   signedInUserQuery,
   userArticlesQuery,
 } from "../queries"
@@ -32,6 +33,7 @@ export const createArticleMutation = new Mutation(
           // @ts-ignore
           arguments: { username: article.author.username },
         }),
+        globalFeedQuery,
       ])
     },
   }

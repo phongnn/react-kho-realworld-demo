@@ -42,10 +42,6 @@ export function renderProtectedRoute(path: string) {
   )
 }
 
-export function renderApp() {
-  return renderRoute("/")
-}
-
 export function renderWithRouter(ui: React.ReactElement) {
   return render(<Router>{ui}</Router>)
 }

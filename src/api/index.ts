@@ -35,8 +35,11 @@ export async function getArticlesByTag(
 }
 
 export async function getArticle(slug: string) {
-  const result = await request(`/articles/${slug}`)
-  return result.article as Article
+  const [r1, r2] = await Promise.all([
+    request(`/articles/${slug}`),
+    request(`/articles/${slug}/comments`),
+  ])
+  return { ...r1.article, comments: r2.comments } as Article
 }
 
 export async function getUser(username: string) {

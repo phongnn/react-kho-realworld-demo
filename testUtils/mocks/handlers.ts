@@ -47,12 +47,46 @@ export const handlers = [
   rest.get(`${baseUrl}/tags`, (req, res, ctx) =>
     res(ctx.json({ tags: popularTags }))
   ),
-  rest.get(`${baseUrl}/articles/:slug`, ({ params: { slug } }, res, ctx) =>
-    res(
+  rest.get(`${baseUrl}/articles/:slug`, ({ params: { slug } }, res, ctx) => {
+    const article = allArticles.find((a) => a.slug === slug)!
+    return res(
       ctx.json({
-        article: transformArticle(allArticles.find((a) => a.slug === slug)!),
+        article: {
+          slug: article.slug,
+          title: article.title,
+          description: article.description,
+          body: article.body,
+          tagList: article.tagList,
+          updatedAt: article.updatedAt,
+          author: {
+            username: article.author.username,
+            image: article.author.image,
+            following: false,
+          },
+          favorited: false,
+          favoriteCount: article.favoriteCount,
+        },
       })
     )
+  }),
+  rest.get(
+    `${baseUrl}/articles/:slug/comments`,
+    ({ params: { slug } }, res, ctx) => {
+      const article = allArticles.find((a) => a.slug === slug)!
+      return res(
+        ctx.json({
+          comments: article.comments.map((c) => ({
+            id: c.id,
+            body: c.body,
+            createdAt: c.createdAt,
+            author: {
+              username: c.author.username,
+              image: c.author.image,
+            },
+          })),
+        })
+      )
+    }
   ),
   rest.get(
     `${baseUrl}/profiles/:username`,
@@ -295,33 +329,6 @@ function transformArticleList(
           },
         })
       ),
-  }
-}
-
-function transformArticle(article: typeof allArticles[0]) {
-  return {
-    slug: article.slug,
-    title: article.title,
-    description: article.description,
-    body: article.body,
-    tagList: article.tagList,
-    updatedAt: article.updatedAt,
-    author: {
-      username: article.author.username,
-      image: article.author.image,
-      following: false,
-    },
-    favorited: false,
-    favoriteCount: article.favoriteCount,
-    comments: article.comments.map((c) => ({
-      id: c.id,
-      body: c.body,
-      createdAt: c.createdAt,
-      author: {
-        username: c.author.username,
-        image: c.author.image,
-      },
-    })),
   }
 }
 

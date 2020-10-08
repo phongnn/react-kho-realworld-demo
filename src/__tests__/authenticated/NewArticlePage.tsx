@@ -2,12 +2,12 @@ import { screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 
 import config from "../../common/config"
-import * as dummy from "../../../testUtils/dummy"
+import * as dummy from "../__helpers__/dummy"
 import {
   server as mockServer,
   rest as mswRest,
-} from "../../../testUtils/mocks/server"
-import { renderProtectedRoute } from "../../../testUtils/render"
+} from "../__helpers__/mocks/server"
+import { renderProtectedRoute } from "../__helpers__/render"
 
 const { baseUrl } = config.api
 

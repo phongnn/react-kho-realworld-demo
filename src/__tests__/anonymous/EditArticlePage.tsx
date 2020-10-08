@@ -1,7 +1,7 @@
 import { screen } from "@testing-library/react"
 
-import { renderRoute } from "../../../testUtils/render"
-import { allArticles } from "../../../testUtils/mocks/data"
+import { renderRoute } from "../__helpers__/render"
+import { allArticles } from "../__helpers__/mocks/data"
 
 it("redirects user to sign up page", async () => {
   renderRoute(`/edit/${allArticles[0].slug}`)

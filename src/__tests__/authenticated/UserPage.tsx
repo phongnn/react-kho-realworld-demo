@@ -1,8 +1,8 @@
 import { screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 
-import { renderProtectedRoute } from "../../../testUtils/render"
-import { bob } from "../../../testUtils/mocks/data"
+import { renderProtectedRoute } from "../__helpers__/render"
+import { bob } from "../__helpers__/mocks/data"
 
 it("toggles state of following author", async () => {
   renderProtectedRoute(`/users/${bob.username}`)

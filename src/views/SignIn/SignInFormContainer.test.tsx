@@ -7,9 +7,9 @@ import SignInFormContainer from "./SignInFormContainer"
 import {
   server as mockServer,
   rest as mswRest,
-} from "../../../testUtils/mocks/server"
-import { renderWithProviders } from "../../../testUtils/render"
-import * as dummy from "../../../testUtils/dummy"
+} from "../../__tests__/__helpers__/mocks/server"
+import { renderWithProviders } from "../../__tests__/__helpers__/render"
+import * as dummy from "../../__tests__/__helpers__/dummy"
 
 const { baseUrl } = config.api
 

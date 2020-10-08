@@ -6,18 +6,18 @@ import {
 } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 
-import { renderProtectedRoute } from "../../../testUtils/render"
+import { renderProtectedRoute } from "../__helpers__/render"
 import {
   allArticles,
   aliceArticles,
   bobArticles,
   alice,
   bob,
-} from "../../../testUtils/mocks/data"
+} from "../__helpers__/mocks/data"
 import {
   server as mockServer,
   rest as mswRest,
-} from "../../../testUtils/mocks/server"
+} from "../__helpers__/mocks/server"
 import config from "../../common/config"
 
 const { baseUrl } = config.api

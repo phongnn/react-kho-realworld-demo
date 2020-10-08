@@ -4,8 +4,8 @@ import { screen } from "@testing-library/react"
 import { ArticleBody, ArticleActions } from "./ArticleView"
 import ArticleComments from "./ArticleComments"
 import { formatDate } from "../../../common/helpers"
-import { allArticles } from "../../../../testUtils/mocks/data"
-import { renderWithProviders } from "../../../../testUtils/render"
+import { allArticles } from "../../../__tests__/__helpers__/mocks/data"
+import { renderWithProviders } from "../../../__tests__/__helpers__/render"
 
 const article = allArticles[0]
 const noOp = () => {}
@@ -14,11 +14,12 @@ it("renders correct article actions", async () => {
   renderWithProviders(
     <ArticleActions
       article={article}
-      onAuthorFollow={noOp}
+      onFollowingToggle={noOp}
       onFavoriteToggle={noOp}
       onDelete={noOp}
       processingDelete={false}
       processingFavorite={false}
+      processingFollowing={false}
     />
   )
 

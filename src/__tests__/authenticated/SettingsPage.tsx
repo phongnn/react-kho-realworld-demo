@@ -4,13 +4,13 @@ import userEvent from "@testing-library/user-event"
 
 import config from "../../common/config"
 import SettingsForm from "../../views/Settings/SettingsForm"
-import { renderProtectedRoute } from "../../../testUtils/render"
-import { alice } from "../../../testUtils/mocks/data"
+import { renderProtectedRoute } from "../__helpers__/render"
+import { alice } from "../__helpers__/mocks/data"
 import {
   server as mockServer,
   rest as mswRest,
-} from "../../../testUtils/mocks/server"
-import * as dummy from "../../../testUtils/dummy"
+} from "../__helpers__/mocks/server"
+import * as dummy from "../__helpers__/dummy"
 
 const { baseUrl } = config.api
 

@@ -2,8 +2,8 @@ import React from "react"
 
 import CommentView from "./CommentView"
 import { formatDate } from "../../../../common/helpers"
-import { allArticles } from "../../../../../testUtils/mocks/data"
-import { renderWithRouter } from "../../../../../testUtils/render"
+import { allArticles } from "../../../../__tests__/__helpers__/mocks/data"
+import { renderWithRouter } from "../../../../__tests__/__helpers__/render"
 
 test("should render article comment with correct details", async () => {
   const comment = allArticles[0].comments[0]

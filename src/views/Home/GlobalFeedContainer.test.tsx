@@ -4,12 +4,12 @@ import { screen, waitForElementToBeRemoved } from "@testing-library/react"
 // import {
 //   server as mockServer,
 //   graphql as mswGraphql,
-// } from "../../../testUtils/mocks/server"
-import { allArticles } from "../../../testUtils/mocks/data"
+// } from "../__helpers__/mocks/server"
+import { allArticles } from "../../__tests__/__helpers__/mocks/data"
 
 import GlobalFeedContainer from "./GlobalFeedContainer"
 import config from "../../common/config"
-import { renderWithProviders } from "../../../testUtils/render"
+import { renderWithProviders } from "../../__tests__/__helpers__/render"
 
 const { pageSize } = config.pagination
 

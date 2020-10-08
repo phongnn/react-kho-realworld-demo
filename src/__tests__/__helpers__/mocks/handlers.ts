@@ -12,7 +12,7 @@ import {
   bobArticles,
   getFeedArticles,
 } from "./data"
-import config from "../../src/common/config"
+import config from "../../../common/config"
 
 const { baseUrl } = config.api
 const authHeader = `Token ${accessToken}`

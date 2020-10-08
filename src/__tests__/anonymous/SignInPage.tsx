@@ -2,8 +2,8 @@ import { act, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 
 import { getAccessToken, removeAccessToken } from "../../accessToken"
-import { renderRoute } from "../../../testUtils/render"
-import { alice, accessToken } from "../../../testUtils/mocks/data"
+import { renderRoute } from "../__helpers__/render"
+import { alice, accessToken } from "../__helpers__/mocks/data"
 
 afterEach(removeAccessToken)
 

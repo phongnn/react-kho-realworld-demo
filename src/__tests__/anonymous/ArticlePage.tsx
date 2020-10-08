@@ -2,12 +2,12 @@ import { waitForElementToBeRemoved, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 
 import config from "../../common/config"
-import { renderRoute } from "../../../testUtils/render"
-import { allArticles } from "../../../testUtils/mocks/data"
+import { renderRoute } from "../__helpers__/render"
+import { allArticles } from "../__helpers__/mocks/data"
 import {
   server as mockServer,
   rest as mswRest,
-} from "../../../testUtils/mocks/server"
+} from "../__helpers__/mocks/server"
 
 const { baseUrl } = config.api
 const { slug, title, author, favoriteCount } = allArticles[0]

@@ -1,7 +1,7 @@
 import { screen } from "@testing-library/react"
 import { saveAccessToken, removeAccessToken } from "../../accessToken"
-import { renderRoute } from "../../../testUtils/render"
-import { accessToken } from "../../../testUtils/mocks/data"
+import { renderRoute } from "../__helpers__/render"
+import { accessToken } from "../__helpers__/mocks/data"
 
 afterEach(removeAccessToken)
 

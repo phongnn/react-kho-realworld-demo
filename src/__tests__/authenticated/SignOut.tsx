@@ -2,8 +2,8 @@ import { screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 // prettier-ignore
 import { saveAccessToken, removeAccessToken, getAccessToken } from "../../accessToken"
-import { renderRoute } from "../../../testUtils/render"
-import { accessToken } from "../../../testUtils/mocks/data"
+import { renderRoute } from "../__helpers__/render"
+import { accessToken } from "../__helpers__/mocks/data"
 
 beforeAll(() => saveAccessToken(accessToken))
 afterAll(removeAccessToken)

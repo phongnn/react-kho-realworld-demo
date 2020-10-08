@@ -2,9 +2,9 @@ import { act, screen, waitForElementToBeRemoved } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 
 import { getAccessToken, removeAccessToken } from "../../accessToken"
-import * as dummy from "../../../testUtils/dummy"
-import { renderRoute } from "../../../testUtils/render"
-import { accessToken } from "../../../testUtils/mocks/data"
+import * as dummy from "../__helpers__/dummy"
+import { renderRoute } from "../__helpers__/render"
+import { accessToken } from "../__helpers__/mocks/data"
 
 afterEach(removeAccessToken)
 

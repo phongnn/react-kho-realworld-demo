@@ -7,12 +7,8 @@ import userEvent from "@testing-library/user-event"
 
 import config from "../../common/config"
 import { saveAccessToken } from "../../accessToken"
-import { renderProtectedRoute, renderRoute } from "../../../testUtils/render"
-import {
-  alice,
-  allArticles,
-  getFeedArticles,
-} from "../../../testUtils/mocks/data"
+import { renderProtectedRoute, renderRoute } from "../__helpers__/render"
+import { alice, allArticles, getFeedArticles } from "../__helpers__/mocks/data"
 
 it("shows home page for anonymous user if token is invalid", async () => {
   jest.spyOn(console, "error").mockImplementation(() => {})

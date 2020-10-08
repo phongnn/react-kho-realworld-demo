@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event"
 // prettier-ignore
 import { saveAccessToken, removeAccessToken, getAccessToken } from "../../accessToken"
 import { renderRoute } from "../__helpers__/render"
-import { accessToken } from "../__helpers__/mocks/data"
+import { accessToken } from "../__helpers__/data"
 
 beforeAll(() => saveAccessToken(accessToken))
 afterAll(removeAccessToken)

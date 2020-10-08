@@ -1,4 +1,4 @@
-import * as dummy from "../dummy"
+import * as dummy from "./dummy"
 
 export const alice = { ...dummy.userData(), username: "alice" }
 export const bob = { ...dummy.userData(), username: "bob" }

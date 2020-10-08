@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event"
 
 import { getAccessToken, removeAccessToken } from "../../accessToken"
 import { renderRoute } from "../__helpers__/render"
-import { alice, accessToken } from "../__helpers__/mocks/data"
+import { alice, accessToken } from "../__helpers__/data"
 
 afterEach(removeAccessToken)
 

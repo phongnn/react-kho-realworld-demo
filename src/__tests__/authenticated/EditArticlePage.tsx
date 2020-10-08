@@ -3,12 +3,9 @@ import userEvent from "@testing-library/user-event"
 
 import config from "../../common/config"
 import * as dummy from "../__helpers__/dummy"
-import {
-  server as mockServer,
-  rest as mswRest,
-} from "../__helpers__/mocks/server"
+import { server as mockServer, rest as mswRest } from "../__helpers__/server"
 import { renderProtectedRoute } from "../__helpers__/render"
-import { aliceArticles } from "../__helpers__/mocks/data"
+import { aliceArticles } from "../__helpers__/data"
 
 const { baseUrl } = config.api
 

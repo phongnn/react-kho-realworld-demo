@@ -4,7 +4,7 @@
 // learn more: https://github.com/testing-library/jest-dom
 import "@testing-library/jest-dom/extend-expect"
 
-import { server } from "./__tests__/__helpers__/mocks/server"
+import { server } from "./__tests__/__helpers__/server"
 
 beforeAll(() => server.listen())
 

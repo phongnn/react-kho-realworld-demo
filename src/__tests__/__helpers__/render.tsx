@@ -5,7 +5,7 @@ import { render } from "@testing-library/react"
 
 import App from "../../views/App"
 import UserProvider, { UserContext } from "../../views/__shared__/UserProvider"
-import { alice } from "./mocks/data"
+import { alice } from "./data"
 import { signedInUserQuery } from "../../store/queries"
 
 export function renderWithProviders(ui: React.ReactElement) {

@@ -8,10 +8,7 @@ import userEvent from "@testing-library/user-event"
 
 import TagViewContainer from "./TagViewContainer"
 import { renderWithProviders } from "../../__tests__/__helpers__/render"
-import {
-  popularTags,
-  getArticlesByTag,
-} from "../../__tests__/__helpers__/mocks/data"
+import { popularTags, getArticlesByTag } from "../../__tests__/__helpers__/data"
 
 const pageSize = 3
 

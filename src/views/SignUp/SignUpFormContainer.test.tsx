@@ -8,7 +8,7 @@ import * as dummy from "../../__tests__/__helpers__/dummy"
 import {
   server as mockServer,
   rest as mswRest,
-} from "../../__tests__/__helpers__/mocks/server"
+} from "../../__tests__/__helpers__/server"
 import { renderWithProviders } from "../../__tests__/__helpers__/render"
 
 const { baseUrl } = config.api

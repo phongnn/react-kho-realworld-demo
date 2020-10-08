@@ -3,11 +3,8 @@ import userEvent from "@testing-library/user-event"
 
 import config from "../../common/config"
 import { renderRoute } from "../__helpers__/render"
-import { allArticles } from "../__helpers__/mocks/data"
-import {
-  server as mockServer,
-  rest as mswRest,
-} from "../__helpers__/mocks/server"
+import { allArticles } from "../__helpers__/data"
+import { server as mockServer, rest as mswRest } from "../__helpers__/server"
 
 const { baseUrl } = config.api
 const { slug, title, author, favoriteCount } = allArticles[0]

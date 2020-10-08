@@ -4,7 +4,7 @@ import { screen } from "@testing-library/react"
 import ArticleList from "./ArticleList"
 import ArticleListItemContainer from "./ArticleListItemContainer"
 import { formatDate } from "../../../common/helpers"
-import { allArticles } from "../../../__tests__/__helpers__/mocks/data"
+import { allArticles } from "../../../__tests__/__helpers__/data"
 import { renderWithProviders } from "../../../__tests__/__helpers__/render"
 
 const noOp = () => {}

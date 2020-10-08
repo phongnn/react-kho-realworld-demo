@@ -7,11 +7,7 @@ import userEvent from "@testing-library/user-event"
 
 import config from "../../common/config"
 import { renderRoute } from "../__helpers__/render"
-import {
-  popularTags,
-  getArticlesByTag,
-  allArticles,
-} from "../__helpers__/mocks/data"
+import { popularTags, getArticlesByTag, allArticles } from "../__helpers__/data"
 
 const { pageSize } = config.pagination
 

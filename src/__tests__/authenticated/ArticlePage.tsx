@@ -13,11 +13,8 @@ import {
   bobArticles,
   alice,
   bob,
-} from "../__helpers__/mocks/data"
-import {
-  server as mockServer,
-  rest as mswRest,
-} from "../__helpers__/mocks/server"
+} from "../__helpers__/data"
+import { server as mockServer, rest as mswRest } from "../__helpers__/server"
 import config from "../../common/config"
 
 const { baseUrl } = config.api

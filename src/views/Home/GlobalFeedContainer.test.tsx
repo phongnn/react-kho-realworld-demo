@@ -4,8 +4,8 @@ import { screen, waitForElementToBeRemoved } from "@testing-library/react"
 // import {
 //   server as mockServer,
 //   graphql as mswGraphql,
-// } from "../__helpers__/mocks/server"
-import { allArticles } from "../../__tests__/__helpers__/mocks/data"
+// } from "../__helpers__/server"
+import { allArticles } from "../../__tests__/__helpers__/data"
 
 import GlobalFeedContainer from "./GlobalFeedContainer"
 import config from "../../common/config"

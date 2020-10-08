@@ -4,7 +4,7 @@ import { screen } from "@testing-library/react"
 import { ArticleBody, ArticleActions } from "./ArticleView"
 import ArticleComments from "./ArticleComments"
 import { formatDate } from "../../../common/helpers"
-import { allArticles } from "../../../__tests__/__helpers__/mocks/data"
+import { allArticles } from "../../../__tests__/__helpers__/data"
 import { renderWithProviders } from "../../../__tests__/__helpers__/render"
 
 const article = allArticles[0]

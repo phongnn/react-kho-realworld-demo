@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event"
 import { getAccessToken, removeAccessToken } from "../../accessToken"
 import * as dummy from "../__helpers__/dummy"
 import { renderRoute } from "../__helpers__/render"
-import { accessToken } from "../__helpers__/mocks/data"
+import { accessToken } from "../__helpers__/data"
 
 afterEach(removeAccessToken)
 

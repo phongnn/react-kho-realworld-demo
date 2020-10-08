@@ -5,11 +5,8 @@ import userEvent from "@testing-library/user-event"
 import config from "../../common/config"
 import SettingsForm from "../../views/Settings/SettingsForm"
 import { renderProtectedRoute } from "../__helpers__/render"
-import { alice } from "../__helpers__/mocks/data"
-import {
-  server as mockServer,
-  rest as mswRest,
-} from "../__helpers__/mocks/server"
+import { alice } from "../__helpers__/data"
+import { server as mockServer, rest as mswRest } from "../__helpers__/server"
 import * as dummy from "../__helpers__/dummy"
 
 const { baseUrl } = config.api

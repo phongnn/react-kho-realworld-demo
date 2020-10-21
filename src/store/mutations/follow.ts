@@ -11,7 +11,7 @@ export const followUserMutation = new Mutation(
     return following ? followUser(username) : unfollowUser(username)
   },
   {
-    shape: UserType,
+    resultShape: UserType,
     afterQueryUpdates(store) {
       store.refetchQueries([yourFeedQuery])
     },

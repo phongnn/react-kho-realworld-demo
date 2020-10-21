@@ -19,7 +19,7 @@ export const signInWithTokenMutation = new Mutation(
     }
   },
   {
-    shape: {
+    resultShape: {
       user: UserType,
     },
     afterQueryUpdates(store, { mutationResult }) {
@@ -38,7 +38,7 @@ export const signUpMutation = new Mutation(
   "SignUp",
   (args: { username: string; email: string; password: string }) => signUp(args),
   {
-    shape: { user: UserType },
+    resultShape: { user: UserType },
     afterQueryUpdates(store, { mutationResult }) {
       if ((mutationResult as LogInResult).token) {
         const { user, token } = mutationResult as LogInResult
@@ -53,7 +53,7 @@ export const signInMutation = new Mutation(
   "SignIn",
   (args: { email: string; password: string }) => signIn(args),
   {
-    shape: { user: UserType },
+    resultShape: { user: UserType },
     afterQueryUpdates: async (store, { mutationResult }) => {
       if ((mutationResult as LogInResult).token) {
         const { user, token } = mutationResult as LogInResult
@@ -81,7 +81,7 @@ export const updateSettingsMutation = new Mutation(
   (args: { email: string; image?: string | null; bio?: string | null }) =>
     updateSettings(args),
   {
-    shape: { user: UserType },
+    resultShape: { user: UserType },
     afterQueryUpdates(store, { mutationResult }) {
       if ((mutationResult as LogInResult).token) {
         const { token } = mutationResult as LogInResult

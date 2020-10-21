@@ -26,7 +26,7 @@ export const createArticleMutation = new Mutation(
     tagList: string[]
   }) => createArticle(args),
   {
-    shape: ArticleType,
+    resultShape: ArticleType,
     afterQueryUpdates(store, { mutationResult: article }) {
       store.refetchQueries([
         userArticlesQuery.withOptions({
@@ -51,7 +51,7 @@ export const updateArticleMutation = new Mutation(
     }
   }) => updateArticle(args.slug, args.input),
   {
-    shape: ArticleType,
+    resultShape: ArticleType,
   }
 )
 
@@ -72,7 +72,7 @@ export const favoriteArticleMutation = new Mutation(
     return favorited ? favoriteArticle(slug) : unfavoriteArticle(slug)
   },
   {
-    shape: ArticleType,
+    resultShape: ArticleType,
     afterQueryUpdates(store) {
       const user = store.getQueryData(signedInUserQuery)!
       store.refetchQueries([
@@ -90,15 +90,17 @@ export const createCommentMutation = new Mutation(
   (args: { slug: string; comment: string }) =>
     createComment(args.slug, { body: args.comment }),
   {
-    shape: CommentType,
+    resultShape: CommentType,
     beforeQueryUpdates(
       cache,
       { mutationArgs: { slug }, mutationResult: commentRef }
     ) {
-      const article = cache.readObject(
-        cache.findObjectRef(ArticleType, { slug })!
-      )
-      article.comments = [...(article.comments || []), commentRef]
+      const articleRef = cache.findObjectRef(ArticleType, { slug })!
+      const article = cache.readObject(articleRef)
+      cache.updateObject(articleRef, {
+        ...article,
+        comments: [...(article.comments || []), commentRef],
+      })
     },
   }
 )
@@ -108,7 +110,7 @@ export const deleteCommentMutation = new Mutation(
   (args: { slug: string; commentId: string }) =>
     deleteComment(args.slug, args.commentId),
   {
-    shape: CommentType,
+    resultShape: CommentType,
     beforeQueryUpdates(cache, { mutationArgs: { commentId } }) {
       cache.deleteObject(cache.findObjectRef(CommentType, { id: commentId })!)
     },

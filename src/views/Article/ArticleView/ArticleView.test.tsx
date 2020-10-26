@@ -31,7 +31,7 @@ it("renders correct article actions", async () => {
   // prettier-ignore
   expect(screen.getByRole("button", { name: `Follow ${article.author.username}` })).toBeInTheDocument()
   // prettier-ignore
-  expect(screen.getByRole("button", { name: `Favorite Post (${article.favoriteCount})` })).toBeInTheDocument()
+  expect(screen.getByRole("button", { name: `Favorite Post (${article.favoritesCount})` })).toBeInTheDocument()
 })
 
 it("renders article body from Markdown text plus the tags", async () => {

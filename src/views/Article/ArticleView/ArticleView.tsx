@@ -17,7 +17,7 @@ export function ArticleActions(props: {
   processingDelete: boolean
 }) {
   const loggedInUser = useUser()
-  const { slug, author, updatedAt, favorited, favoriteCount } = props.article
+  const { slug, author, updatedAt, favorited, favoritesCount } = props.article
   const { username, image, following } = author!
   const isAuthor = loggedInUser?.username === username
   // prettier-ignore
@@ -78,7 +78,7 @@ export function ArticleActions(props: {
           >
             <i className="ion-heart"></i>
             &nbsp; Favorite Post{" "}
-            <span className="counter">({favoriteCount})</span>
+            <span className="counter">({favoritesCount})</span>
           </button>
         </>
       )}

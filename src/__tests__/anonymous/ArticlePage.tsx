@@ -7,7 +7,7 @@ import { allArticles } from "../__helpers__/data"
 import { server as mockServer, rest as mswRest } from "../__helpers__/server"
 
 const { baseUrl } = config.api
-const { slug, title, author, favoriteCount } = allArticles[0]
+const { slug, title, author, favoritesCount } = allArticles[0]
 
 it("loads and shows article", async () => {
   renderRoute(`/articles/${slug}`)
@@ -44,7 +44,7 @@ test("redirects user to sign up when click on favorite article", async () => {
 
   userEvent.click(
     screen.getAllByRole("button", {
-      name: `Favorite Post (${favoriteCount})`,
+      name: `Favorite Post (${favoritesCount})`,
     })[0]
   )
   expect(await screen.findByPlaceholderText("Username")).toBeInTheDocument()

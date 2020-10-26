@@ -59,6 +59,22 @@ export const articleQuery = new Query(
   (args: { slug: string }) => getArticle(args.slug),
   {
     shape: ArticleType,
+    selector: [
+      "slug",
+      "title",
+      "description",
+      "body",
+      "tagList",
+      "createdAt",
+      "updatedAt",
+      "favoritesCount",
+      "favorited",
+      ["author", ["username", "image", "following"]],
+      [
+        "comments",
+        ["id", "body", "createdAt", ["author", ["username", "image"]]],
+      ],
+    ],
   }
 )
 

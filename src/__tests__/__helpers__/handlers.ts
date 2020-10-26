@@ -64,7 +64,7 @@ export const handlers = [
             following: false,
           },
           favorited: false,
-          favoriteCount: article.favoriteCount,
+          favoritesCount: article.favoritesCount,
         },
       })
     )
@@ -173,7 +173,7 @@ export const handlers = [
         ctx.json({
           article: {
             slug,
-            favoriteCount: ++article.favoriteCount,
+            favoritesCount: ++article.favoritesCount,
             favorited: true,
           },
         })
@@ -188,7 +188,7 @@ export const handlers = [
         ctx.json({
           article: {
             slug,
-            favoriteCount: --article.favoriteCount,
+            favoritesCount: --article.favoritesCount,
             favorited: false,
           },
         })
@@ -226,7 +226,7 @@ export const handlers = [
       const slug = `article-slug-${randomNumber()}`
       const now = new Date()
       const article = {
-        slug, title, description, body, tagList, favoriteCount: 0, comments: [], author: alice, createdAt: now, updatedAt: now
+        slug, title, description, body, tagList, favoritesCount: 0, comments: [], author: alice, createdAt: now, updatedAt: now
       }
       aliceArticles.unshift(article)
       allArticles.unshift(article)
@@ -316,13 +316,13 @@ function transformArticleList(
     articles: allArticles
       .slice(offset, offset + limit)
       .map(
-        ({ slug, title, description, updatedAt, favoriteCount, author }) => ({
+        ({ slug, title, description, updatedAt, favoritesCount, author }) => ({
           slug,
           title,
           description,
           updatedAt, // updatedAt.getTime(),
           favorited: false,
-          favoriteCount,
+          favoritesCount,
           author: {
             username: author.username,
             image: author.image,

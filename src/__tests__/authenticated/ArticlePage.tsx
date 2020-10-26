@@ -20,7 +20,7 @@ import config from "../../common/config"
 const { baseUrl } = config.api
 
 it("toggles article's Favorite status", async () => {
-  const { slug, favoriteCount } = allArticles[0]
+  const { slug, favoritesCount } = allArticles[0]
 
   renderProtectedRoute(`/articles/${slug}`)
   await waitForElementToBeRemoved(screen.getByText(/loading/i))
@@ -30,7 +30,7 @@ it("toggles article's Favorite status", async () => {
   userEvent.click(btnFavToggle)
   expect(btnFavToggle).toBeDisabled()
   await waitFor(() => expect(btnFavToggle).toBeEnabled())
-  expect(btnFavToggle.textContent).toMatch(`(${favoriteCount + 1})`)
+  expect(btnFavToggle.textContent).toMatch(`(${favoritesCount + 1})`)
 })
 
 it("toggles state of following author", async () => {

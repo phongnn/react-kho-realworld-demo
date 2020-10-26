@@ -8,7 +8,7 @@ import { articleQuery } from "../../store/queries"
 import { updateArticleMutation } from "../../store/mutations"
 
 function EditArticleContainer() {
-  const { slug } = useParams()
+  const { slug } = useParams<{ slug: string }>()
   const browserHistory = useHistory()
   const user = useUser()
   const { data: article, loading, error: loadingError } = useQuery(

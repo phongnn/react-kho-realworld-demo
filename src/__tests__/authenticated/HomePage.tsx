@@ -30,7 +30,7 @@ it("shows home page for logged in user if token is valid", async () => {
 })
 
 it("toggles article's Favorite status", async () => {
-  const { slug, favoriteCount } = allArticles[0]
+  const { slug, favoritesCount } = allArticles[0]
 
   renderProtectedRoute("/")
   const btnFavToggle = await screen.findByTestId(`btn-fav_${slug}`)
@@ -40,7 +40,7 @@ it("toggles article's Favorite status", async () => {
 
   await waitFor(() => expect(btnFavToggle).not.toBeDisabled())
   expect(btnFavToggle).toHaveClass("btn-primary")
-  expect(btnFavToggle.textContent).toMatch(`${favoriteCount + 1}`)
+  expect(btnFavToggle.textContent).toMatch(`${favoritesCount + 1}`)
 })
 
 it("goes to New Post when click on the link", async () => {

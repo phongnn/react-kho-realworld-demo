@@ -6,7 +6,7 @@ export interface Article {
   tagList: string[]
   createdAt: Date
   updatedAt: Date
-  favoriteCount: number
+  favoritesCount: number
   favorited: boolean
   author: Partial<User>
   comments?: Array<Partial<Comment>>
@@ -36,7 +36,7 @@ export interface ArticleListResult {
     description: string
     updatedAt: Date
     favorited: boolean
-    favoriteCount: number
+    favoritesCount: number
     author: {
       username: string
       image: string

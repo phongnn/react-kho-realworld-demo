@@ -14,7 +14,7 @@ import {
 export function ArticleViewContainer() {
   const user = useUser()
   const routerHistory = useHistory()
-  const { slug } = useParams()
+  const { slug } = useParams<{ slug: string }>()
   const { data: article, loading, error } = useQuery(articleQuery, {
     arguments: { slug },
   })

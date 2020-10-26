@@ -14,7 +14,7 @@ function ArticleListItemView(props: {
   processingFavorite?: boolean
 }) {
   // prettier-ignore
-  const { slug, title, description, updatedAt, author, favoriteCount, favorited } = props.article
+  const { slug, title, description, updatedAt, author, favoritesCount, favorited } = props.article
   const { username, image } = author!
   const { processingFavorite = false } = props
 
@@ -41,7 +41,7 @@ function ArticleListItemView(props: {
           onClick={() => props.onFavoriteToggle(slug!, !favorited)}
           disabled={processingFavorite}
         >
-          <i className="ion-heart"></i> {favoriteCount}
+          <i className="ion-heart"></i> {favoritesCount}
         </button>
       </div>
       <Link to={`/articles/${slug}`} className="preview-link">

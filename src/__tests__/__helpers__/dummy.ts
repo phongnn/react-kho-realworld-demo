@@ -28,7 +28,7 @@ export function articleData() {
     tagList: randomTags(),
     createdAt: faker.date.past(),
     updatedAt: new Date(),
-    favoriteCount: faker.random.number(100),
+    favoritesCount: faker.random.number(100),
   }
 }
 

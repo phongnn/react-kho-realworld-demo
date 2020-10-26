@@ -6572,10 +6572,10 @@ jsx-ast-utils@^2.2.1, jsx-ast-utils@^2.2.3:
     array-includes "^3.1.1"
     object.assign "^4.1.0"
 
-kho@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/kho/-/kho-1.0.3.tgz#444b1f42a4813d10b8e3cc27c0ca141f414e9e87"
-  integrity sha512-Il4W2xm8ZB6uBVf6fF84qbOzf/c/RDsqleXLhnr8sEoxS6nTdyayip3PBffVhef1xx1ECrL4IyLg+kmua3kmCw==
+kho@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/kho/-/kho-1.1.0.tgz#acbcb4cb5d9431e8d2521bcbebc05199b85fec5a"
+  integrity sha512-PKIUIAp5w98Uu7RTsLeQ/otWslWcYFxtEmu8CllJFyxSoIlpmsMtFJld4m1NT84EslFVRy9ThjgV4P2CgBPFlQ==
 
 killable@^1.0.1:
   version "1.0.1"
@@ -8905,12 +8905,12 @@ react-is@^16.12.0, react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.1, react-i
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
-react-kho@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/react-kho/-/react-kho-1.0.0.tgz#385b16e953d22bc2f8e2ec1d2282e0b27d759b9c"
-  integrity sha512-9b1D7o4QwubErtWmmK2yi4XAOnK2IEIqZ3mI4n0phUVA+fhqAfD5nDn/jl2aSNEyH4ZyL1YKszhnEFOHl7Zmvg==
+react-kho@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-kho/-/react-kho-1.1.0.tgz#84f55e2e1fc5c9844bde641fca054bfcbebeaa20"
+  integrity sha512-iTeGaagjDuh/L9wqGP7n9/YxFWYhFgCiAt3XthfJPcJRgjTx8JZVweLxQJCgFUZGpqOln577Gj60bKRTdMFPSw==
   dependencies:
-    kho "^1.0.3"
+    kho "^1.1.0"
 
 react-router-dom@^5.2.0:
   version "5.2.0"

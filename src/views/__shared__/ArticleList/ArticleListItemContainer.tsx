@@ -2,7 +2,6 @@ import React from "react"
 import { Link, useHistory } from "react-router-dom"
 import { useMutation } from "react-kho"
 
-import config from "../../../common/config"
 import { Article } from "../../../common/types"
 import { formatDate } from "../../../common/helpers"
 import { useUser } from "../UserProvider"
@@ -22,10 +21,7 @@ function ArticleListItemView(props: {
     <div className="article-preview">
       <div className="article-meta">
         <Link to={`/users/${username}`}>
-          <img
-            src={`${image || config.placeholders.avatar}`}
-            alt={`Avatar of ${username}`}
-          />
+          <img src={image} alt={`Avatar of ${username}`} />
         </Link>
         <div className="info">
           <Link to={`/users/${username}`} className="author">

@@ -2,7 +2,6 @@ import React from "react"
 import { useHistory, NavLink } from "react-router-dom"
 import { useQuery, useMutation } from "react-kho"
 
-import config from "../../common/config"
 import { User } from "../../common/types"
 import { useUser } from "../__shared__/UserProvider"
 import { userInfoQuery } from "../../store/queries"
@@ -22,11 +21,7 @@ function UserInfo(props: {
       <div className="container">
         <div className="row">
           <div className="col-xs-12 col-md-10 offset-md-1">
-            <img
-              src={image || config.placeholders.avatar}
-              className="user-img"
-              alt={username}
-            />
+            <img src={image} className="user-img" alt={username} />
             <h4>{username}</h4>
             <p>{bio}</p>
             {!isLoggedInUser && (

@@ -1,7 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
 
-import config from "../../../common/config"
 import { Article } from "../../../common/types"
 import { formatDate, markdownToHtml } from "../../../common/helpers"
 import { useUser } from "../../__shared__/UserProvider"
@@ -26,10 +25,7 @@ export function ArticleActions(props: {
   return (
     <div className="article-meta">
       <Link to={`/users/${username}`}>
-        <img
-          src={image || config.placeholders.avatar}
-          alt={`Avatar of ${username}`}
-        />
+        <img src={image} alt={`Avatar of ${username}`} />
       </Link>
       <div className="info">
         <Link to={`/users/${username}`} className="author">

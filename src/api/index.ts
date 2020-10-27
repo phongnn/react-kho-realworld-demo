@@ -217,6 +217,6 @@ function setAvatarPlaceholder(user: User) {
   return {
     ...rest,
     bio: bio || "",
-    image: image || "https://static.productionready.io/images/smiley-cyrus.jpg",
+    image: image || config.placeholders.avatar,
   }
 }

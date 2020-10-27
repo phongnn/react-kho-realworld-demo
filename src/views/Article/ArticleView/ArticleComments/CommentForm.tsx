@@ -1,7 +1,6 @@
 import React from "react"
 import { useForm } from "react-hook-form"
 
-import config from "../../../../common/config"
 import { useUser } from "../../../__shared__/UserProvider"
 
 function CommentForm(props: {
@@ -43,7 +42,7 @@ function CommentForm(props: {
         </div>
         <div className="card-footer">
           <img
-            src={user.image || config.placeholders.avatar}
+            src={user.image}
             className="comment-author-img"
             alt={`Avatar of ${user.username}`}
           />

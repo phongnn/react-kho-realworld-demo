@@ -1,7 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
 
-import config from "../../../../common/config"
 import { Comment } from "../../../../common/types"
 import { formatDate } from "../../../../common/helpers"
 import { useUser } from "../../../__shared__/UserProvider"
@@ -22,7 +21,7 @@ function CommentView(props: {
       <div className="card-footer">
         <Link to={`/users/${username}`} className="comment-author">
           <img
-            src={image || config.placeholders.avatar}
+            src={image}
             className="comment-author-img"
             alt={`Avatar of ${username}`}
           />

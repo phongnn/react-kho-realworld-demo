@@ -15,7 +15,7 @@ function SignUpFormContainer() {
     data && (data as Errors).errors
       ? (data as Errors).errors
       : error
-      ? { server: "Unexpected error. Please try again later." }
+      ? { "": "Unexpected error. Please try again later." }
       : undefined
 
   if (user) {

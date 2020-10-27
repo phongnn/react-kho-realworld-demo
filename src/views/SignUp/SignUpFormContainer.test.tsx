@@ -65,7 +65,7 @@ describe("validates input", () => {
 })
 
 it("shows server validation message", async () => {
-  const errMsg = "Username already exists"
+  const errMsg = "already exists"
   mockServer.use(
     mswRest.post(`${baseUrl}/users`, (req, res, ctx) =>
       res(ctx.status(422), ctx.json({ errors: { username: [errMsg] } }))
@@ -76,7 +76,7 @@ it("shows server validation message", async () => {
   await submitForm(dummy.userData())
 
   // expect(screen.getByRole("button", { name: /Sign up/ })).toBeDisabled()
-  expect(await screen.findByText(errMsg)).toBeInTheDocument()
+  expect(await screen.findByText(/username already exists/)).toBeInTheDocument()
 })
 
 /* production code works as expected in browser but somehow this test fails */

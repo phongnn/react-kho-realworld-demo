@@ -25,7 +25,7 @@ function SettingsFormContainer() {
     mutationResult && (mutationResult as Errors).errors
       ? (mutationResult as Errors).errors
       : updatingError
-      ? { server: "Unexpected error. Please try again later." }
+      ? { "": "Unexpected error. Please try again later." }
       : undefined
 
   useEffect(() => {

@@ -213,11 +213,10 @@ function transformLogInResult(data: { user: any }) {
 }
 
 function setAvatarPlaceholder(user: User) {
-  const { image, ...rest } = user
-  return image
-    ? user
-    : {
-        image: "https://static.productionready.io/images/smiley-cyrus.jpg",
-        ...rest,
-      }
+  const { image, bio, ...rest } = user
+  return {
+    ...rest,
+    bio: bio || "",
+    image: image || "https://static.productionready.io/images/smiley-cyrus.jpg",
+  }
 }

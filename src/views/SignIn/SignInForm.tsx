@@ -28,10 +28,13 @@ function SignInForm(props: {
 
             <ul className="error-messages">
               {props.serverErrors &&
-                Object.values(props.serverErrors).map((err, index) => (
-                  <li key={index}>{Array.isArray(err) ? err[0] : err}</li>
-                ))}
-
+                Object.entries(props.serverErrors).map(
+                  ([fieldName, err], index) => (
+                    <li key={index}>
+                      {fieldName} {Array.isArray(err) ? err[0] : err}
+                    </li>
+                  )
+                )}
               {Object.values(errors).map((err, index) => (
                 <li key={index}>{err.message}</li>
               ))}
